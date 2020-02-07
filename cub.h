@@ -5,22 +5,37 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-typedef struct  s_cord{
+typedef struct  s_data {
+    void        *img;
+    void        *win;
+    void        *mlx;
+    char        *addr;
+    int         bpp;
+    int         line_length;
+    int         endian;
+}               t_data;
+
+typedef struct  s_cord_f{
     float           x;
     float           y;
-}               t_cord;
+}               t_cord_f;
+
+typedef struct  s_cord_i{
+    int           x;
+    int           y;
+}               t_cord_i;
 
 typedef struct  s_ray{
     //position du player
-    t_cord          pos;
+    t_cord_f         pos;
     //direction du player
-    t_cord          dir;
+    t_cord_f          dir;
     //rayon
-    t_cord          vect;
+    t_cord_f          vect;
     //distance (fixe): en X entre deux intersections vecticales a des carres, en Y entre deux intersections horizontales a des carres
-    t_cord          deltaDist;
+    t_cord_f          deltaDist;
     //distance initale + incrementee a chaque intersection avec un carre (X est incrementee de deltadistX si intersection verticale, sinon Y est incremente de deltadistY). Permet de savoir si la prochaine intersection sera verticale ou horizontale 
-    t_cord          sideDist;
+    t_cord_f          sideDist;
     //carre dans lequel le rayon se trouve
     int             mapX;
     int             mapY;
@@ -40,14 +55,28 @@ typedef struct  s_ray{
 
     int             color;
 }               t_ray;
+//vectors
+float vect_prod(t_cord_f a, t_cord_f b);
+t_cord_f vect_scalar_prod(t_cord_f a, float x);
+t_cord_f vect_add(t_cord_f a, t_cord_f b);
+t_cord_f vect_normalize(t_cord_f a);
+void print_vect(t_cord_f a);
 
-float vect_prod(t_cord a, t_cord b);
-t_cord vect_scalar_prod(t_cord a, float x);
-t_cord vect_add(t_cord a, t_cord b);
-t_cord vect_normalize(t_cord a);
-void print_vect(t_cord a);
-
-int init_ray(int i, int resX, t_cord plane, t_ray *ray);
+//ray casting
+int init_ray(int i, int resX, t_cord_f plane, t_ray *ray);
 int compute_sideDist_step(t_ray *ray);
 int perform_DDA(int map[24][24], t_ray *ray);
+//int perform_DDA(int **map, t_ray *ray);
 int compute_wall(int resY, t_ray *ray);
+void print_ray_info(t_ray ray);
+
+//minirt
+void my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int encode_color(int R, int G, int B);
+void init_mlx(t_data *img, int xres, int yres);
+void fill_screen(t_data *img, int xres, int yres);
+void display_wall(t_data *img, t_ray ray, int x);
+
+//parse
+int ft_init_parse(int ***map, t_cord_f *pos, t_cord_f *dir, t_cord_i *res);
+int ft_return_error(int err_index);

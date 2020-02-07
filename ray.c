@@ -1,6 +1,6 @@
 #include "cub.h"
 
-int init_ray(int i, int resX, t_cord plane, t_ray *ray)
+int init_ray(int i, int resX, t_cord_f plane, t_ray *ray)
 {
     float pos_plane_i;
 
@@ -41,6 +41,7 @@ int compute_sideDist_step(t_ray *ray)
 }
 
 int perform_DDA(int map[24][24], t_ray *ray)
+//int perform_DDA(int **map, t_ray *ray)
 {
     int count = 0;
 
@@ -85,7 +86,20 @@ int compute_wall(int resY, t_ray *ray)
     if(ray->side == 1)
         ray->color = 0xFFFF00;
     else
-        ray->color = 0xFF00FF;
+        ray->color = 0x5FFFFF00;
     return(0);
 }
 
+void print_ray_info(t_ray ray)
+{
+    printf("mapX %d\n", ray.mapX);
+    printf("mapY %d\n", ray.mapY);
+     printf("posX %f\n", ray.pos.x);
+    printf("posY %f\n", ray.pos.y);
+     printf("dirX %f\n", ray.dir.x);
+    printf("dirY %f\n", ray.dir.y);
+    printf("dist %f\n", ray.wallDist);
+    printf("height %d\n", ray.lineHeight);
+    printf("start %d\n", ray.drawStart);
+    printf("end %d\n", ray.drawEnd);
+}
