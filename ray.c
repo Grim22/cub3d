@@ -40,8 +40,8 @@ int compute_sideDist_step(t_ray *ray)
     return(0);
 }
 
-int perform_DDA(int map[24][24], t_ray *ray)
-//int perform_DDA(int **map, t_ray *ray)
+//int perform_DDA(int map[24][24], t_ray *ray)
+int perform_DDA(int **map, t_ray *ray)
 {
     int count = 0;
 

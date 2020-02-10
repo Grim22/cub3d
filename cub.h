@@ -4,6 +4,7 @@
 #include <mlx.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include "libft.h"
 
 typedef struct  s_data {
     void        *img;
@@ -65,8 +66,8 @@ void print_vect(t_cord_f a);
 //ray casting
 int init_ray(int i, int resX, t_cord_f plane, t_ray *ray);
 int compute_sideDist_step(t_ray *ray);
-int perform_DDA(int map[24][24], t_ray *ray);
-//int perform_DDA(int **map, t_ray *ray);
+//int perform_DDA(int map[24][24], t_ray *ray);
+int perform_DDA(int **map, t_ray *ray);
 int compute_wall(int resY, t_ray *ray);
 void print_ray_info(t_ray ray);
 
@@ -78,5 +79,12 @@ void fill_screen(t_data *img, int xres, int yres);
 void display_wall(t_data *img, t_ray ray, int x);
 
 //parse
-int ft_init_parse(int ***map, t_cord_f *pos, t_cord_f *dir, t_cord_i *res);
+int ft_init_parse(int ***map, t_cord_f *pos, t_cord_f *dir, t_cord_i *res, char *filename);
 int ft_return_error(int err_index);
+
+int ft_get_map(t_list **lst, char *line);
+int ft_fill_map(t_list *lst, int ***map);
+int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, int **map);
+int ft_check_map(int **map);
+int set_dir(t_cord_f *dir, char orientation);
+int ft_free_map(int **map);

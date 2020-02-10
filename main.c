@@ -19,7 +19,7 @@ int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane)
     return(0);
 }
 
-int main()
+int main(int ac, char **av)
 {
     t_cord_i res;
     t_cord_f plane;
@@ -27,41 +27,16 @@ int main()
     float FOV;
     int i;
     t_data img;
-    int **map1;
+    int **map;
 
-    // position (a recuperer dans le fichier)
-    // attention: les x correspondent aux lignes et les y aux colonnes. la coordonee (0,0) est en haut a gauche de la carte
-    // dir correspond a W (a recuperer dans le fichier). Valeurs possibles (1, 0):Sud, (-1, 0):Nord, (0, -1):W, (0, 1):E
-    
-    int map[24][24]=
+    if (ac > 3 || ac < 2)
     {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-    {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-    {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-    };
+        ft_putstr_fd("Error: Wrong number of arguments\n", 1);
+        return(1);
+    }
+    // attention: sur la map, les x correspondent aux lignes et les y aux colonnes. la coordonee (0,0) est en haut a gauche de la carte
 
-    if ((i = ft_init_parse(&map1, &(ray.pos), &(ray.dir), &res)) != 1)
+    if ((i = ft_init_parse(&map, &(ray.pos), &(ray.dir), &res, av[1])) != 1)
         return(ft_return_error(i));
     print_ray_info(ray);
     FOV = 66; // a choisir nous meme
@@ -71,7 +46,6 @@ int main()
 
     init_mlx(&img, res.x, res.y);
     fill_screen(&img, res.x, res.y); // background color
-
     i = 0;
     while(i < res.x)
     {
@@ -84,6 +58,8 @@ int main()
            // print_ray_info(ray);
         i++;
     }
+    printf("Hello\n");
+    ft_free_map(map);
     mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
     mlx_loop(img.mlx);
 }
