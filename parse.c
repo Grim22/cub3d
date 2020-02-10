@@ -31,32 +31,6 @@ int ft_scan(char *line)
     return(0);
 }
 
-//Valeurs possibles (1, 0):Sud, (-1, 0):Nord, (0, -1):W, (0, 1):E
-int set_dir(t_cord_f *dir, char orientation)
-{
-    if (orientation == 'N')
-    {
-        dir->x = -1;
-        dir->y = 0;
-    }
-    if (orientation == 'S')
-    {
-        dir->x = 1;
-        dir->y = 0;
-    }
-    if (orientation == 'W')
-    {
-        dir->x = 0;
-        dir->y = -1;
-    }
-    if (orientation == 'E')
-    {
-        dir->x = 0;
-        dir->y = 1;
-    }
-    return(0);
-}
-
 int ft_init_parse(int ***map, t_cord_f *pos, t_cord_f *dir, t_cord_i *res, char *filename)
 {
     char *line;
@@ -66,31 +40,36 @@ int ft_init_parse(int ***map, t_cord_f *pos, t_cord_f *dir, t_cord_i *res, char 
     t_list *lst;
     
     lst = NULL;
-
-    fd = open(ft_strjoin(filename, ".cub"), O_RDONLY);
+    fd = open(filename, O_RDONLY);
     if (fd == -1)
     {
         perror("Error on the first argument");
+        return(-1);
     }
     while((ret = get_next_line(fd, &line)))
     {
-        //printf("line: %s\n", line);
         if (ret == -1)
             return(-1);
         i = ft_scan(line);
         if (i == 1)
-            ft_get_map(&lst, line);
-        if (i == 2)
+            ft_lstadd_back(&lst, ft_lstnew(line));
+        else if (i == 2)
+        {
             ft_fill_res(i, line, res);
+            free(line);
+        }
+        else
+        {
+            ft_putstr_fd("Wrong line in .cub file: ", 1);
+            ft_putstr_fd(line, 1);
+            free(line);
+            return(-1);
+        }
     }
     ft_fill_map(lst, map);
-    ft_lstclear(&lst, free);
+    ft_lstclear(&lst, &free);
     ft_fill_dir_pos(pos, dir, *map);
-    ft_check_map(*map);
+    if (ft_check_map(*map) == -1)
+        return(-1);
     return (1);
-}
-
-int ft_return_error(int err_index)
-{
-    return(1);
 }

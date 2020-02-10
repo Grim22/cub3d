@@ -70,6 +70,7 @@ int compute_sideDist_step(t_ray *ray);
 int perform_DDA(int **map, t_ray *ray);
 int compute_wall(int resY, t_ray *ray);
 void print_ray_info(t_ray ray);
+int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane);
 
 //minirt
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -88,3 +89,5 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, int **map);
 int ft_check_map(int **map);
 int set_dir(t_cord_f *dir, char orientation);
 int ft_free_map(int **map);
+
+void ft_print_map(int **map);

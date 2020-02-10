@@ -1,11 +1,5 @@
 #include "cub.h"
 
-int ft_get_map(t_list **lst, char *line)
-{
-    ft_lstadd_back(lst, ft_lstnew(line));
-    return(1);
-}
-
 int ft_fill_map(t_list *lst, int ***map)
 {
     int i;
@@ -26,6 +20,7 @@ int ft_fill_map(t_list *lst, int ***map)
         while(j < len)
         {
             (*map)[i][j] = c[j][0];
+            printf("i: %d, j: %d --> %d\n", i, j , (*map)[i][j]);
             free(c[j]);
             j++;
         }
@@ -35,6 +30,32 @@ int ft_fill_map(t_list *lst, int ***map)
         i++;
     }
     (*map)[i] = 0;
+    return(0);
+}
+
+//Valeurs possibles (1, 0):Sud, (-1, 0):Nord, (0, -1):W, (0, 1):E
+int set_dir(t_cord_f *dir, char orientation)
+{
+    if (orientation == 'N')
+    {
+        dir->x = -1;
+        dir->y = 0;
+    }
+    if (orientation == 'S')
+    {
+        dir->x = 1;
+        dir->y = 0;
+    }
+    if (orientation == 'W')
+    {
+        dir->x = 0;
+        dir->y = -1;
+    }
+    if (orientation == 'E')
+    {
+        dir->x = 0;
+        dir->y = 1;
+    }
     return(0);
 }
 
@@ -62,7 +83,21 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, int **map)
     return(0);
 }
 
-int ft_check_map(int **map)
+int ft_free_map(int **map)
+{
+    int i;
+
+    i = 0;
+    while((map)[i])
+    {
+        free((map)[i]);
+        i++;
+    }
+    free(map);
+    return(0);
+}
+
+void ft_print_map(int **map)
 {
     int i;
     int j;
@@ -71,27 +106,13 @@ int ft_check_map(int **map)
     while(map[i])
     {
         j = 0;
-        while(map[i][j])
+        printf("%d :", i);
+        while(j < 25)
         {
-            if (map[i][j] == 48 || map[i][j] == 49 || map[i][j] == 50)
-                map[i][j] = map[i][j] - 48;
+            printf("%d", map[i][j]); 
             j++;
         }
+        printf("  len: %d\n", j);
         i++;
     }
-    return(0);
-}
-
-int ft_free_map(int **map)
-{
-    int i;
-
-    i = 0;
-    while((map)[i])
-    {
-        //free((map)[i]);
-        i++;
-    }
-    //free(map);
-    return(0);
 }

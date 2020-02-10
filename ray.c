@@ -44,7 +44,7 @@ int compute_sideDist_step(t_ray *ray)
 int perform_DDA(int **map, t_ray *ray)
 {
     int count = 0;
-
+    //printf("DDA\n");
     while (ray->hit == 0)
     {
         //jump to next map square, OR in x-direction, OR in y-direction
@@ -53,6 +53,7 @@ int perform_DDA(int **map, t_ray *ray)
             //printf("X\n");
             ray->sideDist.x = ray->sideDist.x + ray->deltaDist.x;
             ray->mapX = ray->mapX + ray->stepX;
+            //printf("mapY: %d\n", ray->mapY);
             ray->side = 0;
         }
         else
@@ -60,6 +61,7 @@ int perform_DDA(int **map, t_ray *ray)
             //printf("Y\n");
             ray->sideDist.y = ray->sideDist.y + ray->deltaDist.y;
             ray->mapY = ray->mapY + ray->stepY;
+            //printf("mapY: %d\n", ray->mapY);
             ray->side = 1;
         }
         //Check if ray has hit a wall
@@ -89,7 +91,24 @@ int compute_wall(int resY, t_ray *ray)
         ray->color = 0x5FFFFF00;
     return(0);
 }
-
+int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane)
+{
+    // determination du vecteur plan image:
+        // dir: perpendiculaire a direction du joueur = dir.
+        // valeur: plane / 2
+    int bool_x = 0;
+    int bool_y = 0;
+    
+    if (dir.x)
+        bool_y = 1;
+    else
+        bool_x = 1;
+    plane->x = bool_x * tan(FOV/2);
+    plane->y = bool_y * tan(FOV / 2);
+    //printf("py: %f\n", plane->y);
+    //printf("px: %f\n", plane->x);
+    return(0);
+}
 void print_ray_info(t_ray ray)
 {
     printf("mapX %d\n", ray.mapX);
@@ -98,6 +117,10 @@ void print_ray_info(t_ray ray)
     printf("posY %f\n", ray.pos.y);
      printf("dirX %f\n", ray.dir.x);
     printf("dirY %f\n", ray.dir.y);
+    printf("sided.x %f\n", ray.sideDist.x);
+    printf("sided.y %f\n", ray.sideDist.y);
+    printf("deltad.x %f\n", ray.deltaDist.x);
+    printf("deltad.y %f\n", ray.deltaDist.y);
     printf("dist %f\n", ray.wallDist);
     printf("height %d\n", ray.lineHeight);
     printf("start %d\n", ray.drawStart);
