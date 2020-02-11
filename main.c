@@ -17,8 +17,6 @@ int main(int ac, char **av)
     }
     if ((i = ft_init_parse(&map, &(ray.pos), &(ray.dir), &res, av[1])) != 1)
         return(0);
-    //ft_print_map(map);
-    //print_ray_info(ray);
     
     FOV = 66; // a choisir nous meme
     FOV = FOV * M_PI / 180;

@@ -20,7 +20,8 @@ void ft_convert_maptoint(int **map)
 }
 
 
-int ft_check_mapborders(int **map)
+int ft_check_mapborders(int **map) // ne marche pas car sarrete de boucler quand rencontre un 0 sur la map --> convertir la map en char
+// ajouter un check sur les premieres et dernieres lignes de la map (que des 1)
 {
     int i;
     int j;

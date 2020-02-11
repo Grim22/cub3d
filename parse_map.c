@@ -20,7 +20,7 @@ int ft_fill_map(t_list *lst, int ***map)
         while(j < len)
         {
             (*map)[i][j] = c[j][0];
-            printf("i: %d, j: %d --> %d\n", i, j , (*map)[i][j]);
+            //printf("i: %d, j: %d --> %d\n", i, j , (*map)[i][j]);
             free(c[j]);
             j++;
         }
@@ -106,13 +106,13 @@ void ft_print_map(int **map)
     while(map[i])
     {
         j = 0;
-        printf("%d :", i);
+        //printf("%d :", i);
         while(j < 25)
         {
-            printf("%d", map[i][j]); 
+            //printf("%d", map[i][j]); 
             j++;
         }
-        printf("  len: %d\n", j);
+        //printf("  len: %d\n", j);
         i++;
     }
 }
