@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 16:13:58 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/12 17:14:03 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ int main(int ac, char **av)
         init_ray(i, params.res.x, plane, &ray);
         compute_sideDist_step(&ray);
         perform_DDA(map, &ray);
-        //printf("i: %d\n", i);
         compute_wall(params.res.y, &ray);
         display_wall(&img, ray, i);
         //if (i % 25 == 0)
             //print_ray_info(ray);
         i++;
     }
+    mlx_hook(img.win, 17, 1L << 17, &ft_close, 0);
+    mlx_key_hook(img.win, &close_on_ESC, 0);
     ft_free_map(map);
     mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
     mlx_loop(img.mlx);
