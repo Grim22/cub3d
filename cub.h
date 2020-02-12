@@ -6,6 +6,16 @@
 # include <fcntl.h>
 #include "libft.h"
 
+#define _R 2
+#define _S 4
+#define _F 8
+#define _C 16
+#define _NO 32
+#define _SO 64
+#define _WE 128
+#define _EA 1
+
+//mlx
 typedef struct  s_data {
     void        *img;
     void        *win;
@@ -56,6 +66,18 @@ typedef struct  s_ray{
 
     int             color;
 }               t_ray;
+
+typedef struct  s_param{
+    t_cord_i        res;
+    char            *NO;
+    char            *SO;
+    char            *WE;
+    char            *EA;
+    char            *sprite;
+    int             col_F;
+    int             col_C;
+}               t_param;
+
 //vectors
 float vect_prod(t_cord_f a, t_cord_f b);
 t_cord_f vect_scalar_prod(t_cord_f a, float x);
@@ -67,7 +89,7 @@ void print_vect(t_cord_f a);
 int init_ray(int i, int resX, t_cord_f plane, t_ray *ray);
 int compute_sideDist_step(t_ray *ray);
 //int perform_DDA(int map[24][24], t_ray *ray);
-int perform_DDA(int **map, t_ray *ray);
+int perform_DDA(char **map, t_ray *ray);
 int compute_wall(int resY, t_ray *ray);
 void print_ray_info(t_ray ray);
 int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane);
@@ -80,14 +102,16 @@ void fill_screen(t_data *img, int xres, int yres);
 void display_wall(t_data *img, t_ray ray, int x);
 
 //parse
-int ft_init_parse(int ***map, t_cord_f *pos, t_cord_f *dir, t_cord_i *res, char *filename);
+int ft_init_parse(char ***map, t_ray *ray, t_param *params, char *filename);
 int ft_return_error(int err_index);
 
 int ft_get_map(t_list **lst, char *line);
-int ft_fill_map(t_list *lst, int ***map);
-int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, int **map);
-int ft_check_map(int **map);
+int ft_fill_check_map(t_list **lst, char ***map, t_ray *ray);
+int ft_fill_map(t_list *lst, char ***map);
+int ft_fill_params(int indice, char *line, t_param *params);
+int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map);
+int ft_check_map(char **map);
 int set_dir(t_cord_f *dir, char orientation);
-int ft_free_map(int **map);
+int ft_free_map(char **map);
 
-void ft_print_map(int **map);
+void ft_print_map(char **map);

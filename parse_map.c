@@ -1,32 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/02/12 16:14:13 by bbrunet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-int ft_fill_map(t_list *lst, int ***map)
+int ft_fill_map(t_list *lst, char ***map)
 {
     int i;
     int j;
-    char **c;
+    char *c;
     int len;
     
-    *map = malloc((ft_lstsize(lst) + 1) * sizeof(int *));
+    *map = malloc((ft_lstsize(lst) + 1) * sizeof(char *));
     i = 0;
     while(lst)
     {
-        c = ft_split(lst->content, ' ');
+        c = ft_str_delchar(lst->content, ' ');
         len = 0;
         while(c[len])
             len++;
-        (*map)[i] = malloc((len + 1) * sizeof(int));
+        (*map)[i] = malloc((len + 1) * sizeof(char));
         j = 0;
         while(j < len)
         {
-            (*map)[i][j] = c[j][0];
-            //printf("i: %d, j: %d --> %d\n", i, j , (*map)[i][j]);
-            free(c[j]);
+            (*map)[i][j] = c[j];
             j++;
         }
         (*map)[i][j] = 0;
         lst = lst->next;
-        free(c);
         i++;
     }
     (*map)[i] = 0;
@@ -59,7 +68,7 @@ int set_dir(t_cord_f *dir, char orientation)
     return(0);
 }
 
-int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, int **map)
+int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map)
 {
     int i;
     int j;
@@ -83,7 +92,22 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, int **map)
     return(0);
 }
 
-int ft_free_map(int **map)
+int ft_fill_check_map(t_list **lst, char ***map, t_ray *ray)
+{
+    if (*lst == NULL)
+    {
+	    ft_putstr_fd("Error\nNo map", 1);
+	    return(-1);
+    }
+    ft_fill_map(*lst, map);
+    ft_lstclear(lst, &free);
+    if (ft_check_map(*map) == -1) 
+        return(-1);
+    ft_fill_dir_pos(&(ray->pos), &(ray->dir), *map);
+    return(0);
+}
+
+int ft_free_map(char **map) //appele a la fin du programme
 {
     int i;
 
@@ -97,7 +121,7 @@ int ft_free_map(int **map)
     return(0);
 }
 
-void ft_print_map(int **map)
+void ft_print_map(char **map)
 {
     int i;
     int j;
@@ -106,13 +130,12 @@ void ft_print_map(int **map)
     while(map[i])
     {
         j = 0;
-        //printf("%d :", i);
         while(j < 25)
         {
-            //printf("%d", map[i][j]); 
+            printf("%c", map[i][j]); 
             j++;
         }
-        //printf("  len: %d\n", j);
+        printf("  len: %d\n", j);
         i++;
     }
 }

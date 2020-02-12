@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ray.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/02/12 16:14:20 by bbrunet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 int init_ray(int i, int resX, t_cord_f plane, t_ray *ray)
@@ -41,7 +53,7 @@ int compute_sideDist_step(t_ray *ray)
 }
 
 //int perform_DDA(int map[24][24], t_ray *ray)
-int perform_DDA(int **map, t_ray *ray)
+int perform_DDA(char **map, t_ray *ray)
 {
     int count = 0;
     //printf("DDA\n");
@@ -65,7 +77,7 @@ int perform_DDA(int **map, t_ray *ray)
             ray->side = 1;
         }
         //Check if ray has hit a wall
-        if (map[ray->mapX][ray->mapY] > 0) 
+        if (map[ray->mapX][ray->mapY] == '1' || map[ray->mapX][ray->mapY] == '2') 
             ray->hit = 1;
         count++;
     }
