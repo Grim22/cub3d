@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 17:52:45 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 20:59:39 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ void set_pos_dir_plane(t_ray *ray, t_param params)
     ray->pos = params.pos;
     ray->dir = params.dir;
     //ray->plane = params.plane;
+}
+
+void display_wall(t_img *img, t_ray ray, int x)
+{
+    int j;
+
+    j = ray.drawStart;
+    while (j < ray.drawEnd)
+    {
+        my_mlx_pixel_put(img, x, j, ray.color);
+        j++;
+    }
 }
 
 void print_ray_info(t_ray ray)

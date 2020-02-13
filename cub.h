@@ -20,7 +20,6 @@ typedef struct  s_game{
 }               t_game;
 
 int cast_rays(t_game *game);
-
 int ft_close(void *param); 
 int close_on_ESC(int key);
 int change_pos(int key, t_game *game);

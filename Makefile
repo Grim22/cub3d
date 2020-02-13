@@ -5,7 +5,7 @@ OBJ = $(SRC:%.c=%.o)
 all: compile
 
 compile: $(OBJ)
-	gcc -lmlx -framework OpenGL -framework AppKit -L. -lft $(OBJ)
+	gcc -O3 -lmlx -framework OpenGL -framework AppKit -L. -lft $(OBJ)
 
 %.o: %.c
 	gcc -c $^ -o $@

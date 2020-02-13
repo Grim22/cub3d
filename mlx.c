@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:35 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 12:05:49 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 205:49 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,4 @@ while(i < xres)
     }
     i++;
 }
-}
-
-void display_wall(t_img *img, t_ray ray, int x)
-{
-    int j;
-
-    j = ray.drawStart;
-    while (j < ray.drawEnd)
-    {
-        my_mlx_pixel_put(img, x, j, ray.color);
-        j++;
-    }
-    
 }
