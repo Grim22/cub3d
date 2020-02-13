@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 13:02:06 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 19:49:43 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,29 +103,29 @@ int compute_wall(int resY, t_ray *ray)
     return(0);
 }
 
-int cast_rays(t_img *img, t_param params)
+int cast_rays(t_game *game)
 {
-    t_cord_f plane;
-    float FOV;
     t_ray ray;
     int i;
 
-    FOV = 66; // a choisir nous meme
-    FOV = FOV * M_PI / 180;
-    set_pos_dir(&ray, params);
-    compute_plane(ray.dir, FOV, &plane);
-    fill_screen(img, params.res.x, params.res.y); // background color
+    set_pos_dir_plane(&ray, game->params);
+    //ft_print_map(game->params.map);
+    //compute_plane(ray.dir, FOV, &plane);
+    fill_screen(&game->img, game->params.res.x, game->params.res.y); // background color
     i = 0;
-    while(i < params.res.x)
+    while(i < game->params.res.x)
     {
-        init_ray(i, params.res.x, plane, &ray);
+        init_ray(i, game->params.res.x, game->params.plane, &ray);
         compute_sideDist_step(&ray);
-        perform_DDA(params.map, &ray);
-        compute_wall(params.res.y, &ray);
-        display_wall(img, ray, i);
+        //print_ray_info(ray);
+        perform_DDA(game->params.map, &ray);
+        //printf("Hello\n");
+        compute_wall(game->params.res.y, &ray);
+        display_wall(&game->img, ray, i);
         //if (i % 25 == 0)
             //print_ray_info(ray);
         i++;
     }
+    mlx_put_image_to_window(game->img.mlx, game->img.win, game->img.img, 0, 0);
     return(1);
 }

@@ -12,6 +12,7 @@ typedef struct  s_ray{
     t_cord_f          dir;
     //rayon
     t_cord_f          vect;
+    t_cord_f          plane;
     //distance (fixe): en X entre deux intersections vecticales a des carres, en Y entre deux intersections horizontales a des carres
     t_cord_f          deltaDist;
     //distance initale + incrementee a chaque intersection avec un carre (X est incrementee de deltadistX si intersection verticale, sinon Y est incremente de deltadistY). Permet de savoir si la prochaine intersection sera verticale ou horizontale 
@@ -36,9 +37,8 @@ typedef struct  s_ray{
     int             color;
 }               t_ray;
 
-int cast_rays(t_img *img, t_param params);
 int init_ray(int i, int resX, t_cord_f plane, t_ray *ray);
-void set_pos_dir(t_ray *ray, t_param params);
+void set_pos_dir_plane(t_ray *ray, t_param params);
 int compute_sideDist_step(t_ray *ray);
 int perform_DDA(char **map, t_ray *ray);
 int compute_wall(int resY, t_ray *ray);

@@ -24,6 +24,7 @@ typedef struct  s_param{
     t_cord_i        res;
     t_cord_f        pos;
     t_cord_f        dir;
+    t_cord_f        plane;
     char            **map;
     char            *NO;
     char            *SO;
@@ -41,6 +42,7 @@ int ft_fill_check_map(t_list **lst, char ***map, t_param *params);
 int ft_fill_map(t_list *lst, char ***map);
 int ft_fill_params(int indice, char *line, t_param *params);
 int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map);
+int ft_fill_plane(t_cord_f *plane, t_cord_f dir);
 int ft_check_map(char **map);
 int set_dir(t_cord_f *dir, char orientation);
 int ft_free_map(char **map);

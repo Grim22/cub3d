@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 12:49:52 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 18:32:52 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,6 @@ int ft_init_parse(t_param *params, char *filename)
     }
     if (ft_fill_check_map(&lst, &(params->map), params) == -1)
         return(-1);
+    //ft_print_map(params->map);
     return (1);
 }

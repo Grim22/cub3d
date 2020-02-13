@@ -40,7 +40,7 @@
 # define X_EVENT_MOUSE_PRESS	4
 # define X_EVENT_MOUSE_RELEASE	5
 # define X_EVENT_MOUSE_MOVE		6
-# define X_EVENT_EXIT			13
+# define X_EVENT_EXIT			17
 
 typedef struct  s_img {
     void        *img;
@@ -56,10 +56,5 @@ void my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int encode_color(int R, int G, int B);
 void init_mlx(t_img *img, int xres, int yres);
 void fill_screen(t_img *img, int xres, int yres);
-
-//events
-int ft_close(void *param); 
-int close_on_ESC(int key);
-int change_pos(int key, t_img *img);
 
 #endif

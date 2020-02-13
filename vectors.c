@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:26 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 16:14:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 20:45:01 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,34 @@ t_cord_f vect_normalize(t_cord_f a)
     return(vect_scalar_prod(a, 1 / sqrt(vect_prod(a, a))));
 }
 
+void ft_get_normal(t_cord_f *normal, t_cord_f *dir)
+{
+    printf("normal\n");
+    printf("diry %f\n", dir->y);
+    printf("dirx %f\n", dir->x);
+    normal->x = -dir->y;
+    normal->y = dir->x;
+}
+
+
 void print_vect(t_cord_f a)
 {
     printf("x: %f\n", a.x);
     printf("y: %f\n", a.y);
+}
+
+void rotate_dir(float *x, float *y, float angle)
+{
+    float tmpx;
+    float tmpy;
+
+    printf("initial x: %f\n", *x);
+    printf("initial y: %f\n", *y);
+    angle = angle * M_PI / 180;
+    tmpx = (*x);
+    tmpy = (*y);
+    (*x) = cos(angle) * tmpx - sin(angle) * tmpy;
+    (*y) = sin(angle) * tmpx + cos(angle) * tmpy;
+    printf("final x: %f\n", *x);
+    printf("final y: %f\n", *y);
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 12:49:29 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 18:29:04 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,26 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map)
     return(0);
 }
 
+int ft_fill_plane(t_cord_f *plane, t_cord_f dir)
+{
+    // determination du vecteur plan image:
+        // dir: perpendiculaire a direction du joueur = dir.
+        // valeur: plane / 2
+    
+    int bool_x = 0;
+    int bool_y = 0;
+    
+    if (dir.x)
+        bool_y = 1;
+    else
+        bool_x = 1;
+    plane->x = bool_x * tan(FOV/2);
+    plane->y = bool_y * tan(FOV / 2);
+    printf("py: %f\n", plane->y);
+    printf("px: %f\n", plane->x);
+    return(0);
+}
+
 int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
 {
     if (*lst == NULL)
@@ -104,6 +124,7 @@ int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
     if (ft_check_map(*map) == -1) 
         return(-1);
     ft_fill_dir_pos(&(params->pos), &(params->dir), *map);
+    ft_fill_plane(&(params->plane), params->dir);
     return(0);
 }
 
@@ -126,6 +147,7 @@ void ft_print_map(char **map)
     int i;
     int j;
 
+    printf("Hello\n");
     i = 0;
     while(map[i])
     {

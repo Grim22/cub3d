@@ -6,23 +6,66 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:25:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 12:22:52 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 20:53:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int change_pos(int key, t_img *img)
+int change_pos(int key, t_game *game) //utilser les fonctions daddition de vecteurs et faire des ss fonctions
 {
-    if (key == KEY_A) //'a'
+    float *x;
+    float *y;
+    t_cord_f *pos;
+    t_cord_f *dir;
+    t_cord_f norm;
+    
+    pos = &(game->params.pos);
+    dir = &(game->params.dir);
+    norm.x = -dir->y;
+    norm.y = dir->x;
+    if (key == KEY_A && game->params.map[(int)(pos->x - norm.x / SPEED_M)][(int)(pos->y - norm.y / SPEED_M)] != '1')
     {
-       printf("Hello\n");
+       pos->x += -(norm.x / SPEED_M); 
+       pos->y += -(norm.y / SPEED_M); 
+        cast_rays(game);
+    }
+    if (key == KEY_D && game->params.map[(int)(pos->x + norm.x / SPEED_M)][(int)(pos->y + norm.y / SPEED_M)] != '1')
+    {
+       pos->x += (norm.x / SPEED_M); 
+       pos->y += (norm.y / SPEED_M); 
+       cast_rays(game);
+    }
+    if (key == KEY_W && game->params.map[(int)(pos->x + dir->x / SPEED_M)][(int)(pos->y + dir->y / SPEED_M)] != '1')
+    {
+       pos->x += dir->x / SPEED_M; 
+       pos->y += dir->y / SPEED_M; 
+       cast_rays(game);
+    }
+    if (key == KEY_S && game->params.map[(int)(pos->x - dir->x / SPEED_M)][(int)(pos->y - dir->y / SPEED_M)] != '1')
+    {
+       pos->x += -(dir->x / SPEED_M); 
+       pos->y += -(dir->y / SPEED_M); 
+       cast_rays(game);
+    }
+    if (key == KEY_LEFT)
+    {
+       rotate_dir(&game->params.dir.x, &game->params.dir.y, -SPEED_R);
+       rotate_dir(&game->params.plane.x, &game->params.plane.y, -SPEED_R);
+       cast_rays(game);
+    }
+    if (key == KEY_RIGHT)
+    {
+       rotate_dir(&game->params.dir.x, &game->params.dir.y, SPEED_R);
+       rotate_dir(&game->params.plane.x, &game->params.plane.y, SPEED_R);
+       cast_rays(game);
     }
     if (key == KEY_ESC)
     {
 	    printf("Bye !\n");
         exit(0);
     }
+    //mlx_destroy_image(game->img.mlx, game->img.img);
     return(0);
 }
 
@@ -42,24 +85,3 @@ int close_on_ESC(int key)
     }
     return(0);
 }
-/*
-int print_square_on_click(int key, int x, int y, t_data *img)
-{
-    static int count;
-    
-    printf("keycode: %d, x: %d, y: %d\n", key, x, y);
-    if (key == 1)
-    {
-        print_square(*img, 10*count, 20, 50, 0xFF00FF);
-        mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
-        count++;
-    }
-    return(0);
-}
-
-int try_loop_hook(t_data *img)
-{   
-    print_square(*img, 10, 20, 50, 0xFF00FF);
-    mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
-    return(0);
-}*/
