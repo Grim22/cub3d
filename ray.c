@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 16:14:20 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 13:02:06 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int compute_sideDist_step(t_ray *ray)
     return(0);
 }
 
-//int perform_DDA(int map[24][24], t_ray *ray)
 int perform_DDA(char **map, t_ray *ray)
 {
     int count = 0;
@@ -103,38 +102,30 @@ int compute_wall(int resY, t_ray *ray)
         ray->color = 0x5FFFFF00;
     return(0);
 }
-int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane)
+
+int cast_rays(t_img *img, t_param params)
 {
-    // determination du vecteur plan image:
-        // dir: perpendiculaire a direction du joueur = dir.
-        // valeur: plane / 2
-    int bool_x = 0;
-    int bool_y = 0;
-    
-    if (dir.x)
-        bool_y = 1;
-    else
-        bool_x = 1;
-    plane->x = bool_x * tan(FOV/2);
-    plane->y = bool_y * tan(FOV / 2);
-    //printf("py: %f\n", plane->y);
-    //printf("px: %f\n", plane->x);
-    return(0);
-}
-void print_ray_info(t_ray ray)
-{
-    printf("mapX %d\n", ray.mapX);
-    printf("mapY %d\n", ray.mapY);
-     printf("posX %f\n", ray.pos.x);
-    printf("posY %f\n", ray.pos.y);
-     printf("dirX %f\n", ray.dir.x);
-    printf("dirY %f\n", ray.dir.y);
-    printf("sided.x %f\n", ray.sideDist.x);
-    printf("sided.y %f\n", ray.sideDist.y);
-    printf("deltad.x %f\n", ray.deltaDist.x);
-    printf("deltad.y %f\n", ray.deltaDist.y);
-    printf("dist %f\n", ray.wallDist);
-    printf("height %d\n", ray.lineHeight);
-    printf("start %d\n", ray.drawStart);
-    printf("end %d\n", ray.drawEnd);
+    t_cord_f plane;
+    float FOV;
+    t_ray ray;
+    int i;
+
+    FOV = 66; // a choisir nous meme
+    FOV = FOV * M_PI / 180;
+    set_pos_dir(&ray, params);
+    compute_plane(ray.dir, FOV, &plane);
+    fill_screen(img, params.res.x, params.res.y); // background color
+    i = 0;
+    while(i < params.res.x)
+    {
+        init_ray(i, params.res.x, plane, &ray);
+        compute_sideDist_step(&ray);
+        perform_DDA(params.map, &ray);
+        compute_wall(params.res.y, &ray);
+        display_wall(img, ray, i);
+        //if (i % 25 == 0)
+            //print_ray_info(ray);
+        i++;
+    }
+    return(1);
 }

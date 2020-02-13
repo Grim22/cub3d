@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 16:14:13 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 12:49:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map)
     return(0);
 }
 
-int ft_fill_check_map(t_list **lst, char ***map, t_ray *ray)
+int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
 {
     if (*lst == NULL)
     {
@@ -103,7 +103,7 @@ int ft_fill_check_map(t_list **lst, char ***map, t_ray *ray)
     ft_lstclear(lst, &free);
     if (ft_check_map(*map) == -1) 
         return(-1);
-    ft_fill_dir_pos(&(ray->pos), &(ray->dir), *map);
+    ft_fill_dir_pos(&(params->pos), &(params->dir), *map);
     return(0);
 }
 
@@ -130,7 +130,7 @@ void ft_print_map(char **map)
     while(map[i])
     {
         j = 0;
-        while(j < 25)
+        while(map[i][j])
         {
             printf("%c", map[i][j]); 
             j++;

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 17:14:03 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 12:58:43 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,23 @@
 int main(int ac, char **av)
 {
     t_param params;
-    t_cord_f plane;
-    t_ray ray;
-    float FOV;
-    int i;
-    t_data img;
-    char **map;
+    int ret;
+    t_img img;
 
     if (ac > 3 || ac < 2)
     {
         ft_putstr_fd("Error \n: Wrong number of arguments\n", 1);
-        return(1);
-    }
-    if ((i = ft_init_parse(&map, &ray, &params, av[1])) != 1)
         return(0);
-    FOV = 66; // a choisir nous meme
-    FOV = FOV * M_PI / 180;
-    compute_plane(ray.dir, FOV, &plane);
-
-    init_mlx(&img, params.res.x, params.res.y);
-    fill_screen(&img, params.res.x, params.res.y); // background color
-    i = 0;
-    while(i < params.res.x)
-    {
-        init_ray(i, params.res.x, plane, &ray);
-        compute_sideDist_step(&ray);
-        perform_DDA(map, &ray);
-        compute_wall(params.res.y, &ray);
-        display_wall(&img, ray, i);
-        //if (i % 25 == 0)
-            //print_ray_info(ray);
-        i++;
     }
-    mlx_hook(img.win, 17, 1L << 17, &ft_close, 0);
-    mlx_key_hook(img.win, &close_on_ESC, 0);
-    ft_free_map(map);
+    if ((ret = ft_init_parse(&params, av[1])) != 1)
+        return(0);
+    init_mlx(&img, params.res.x, params.res.y);
+    if (cast_rays(&img, params) == -1)
+        return(0);
+    mlx_hook(img.win, 17, 0, &ft_close, 0);
+    mlx_key_hook(img.win, &change_pos, &img);
     mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
+    //mlx_destroy_image(img.mlx, img.img);
     mlx_loop(img.mlx);
+    ft_free_map(params.map);
 }

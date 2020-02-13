@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:35 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 16:13:36 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/13 12:05:49 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void my_mlx_pixel_put(t_img *data, int x, int y, int color)
 {
     char    *dst;
 
@@ -35,7 +35,7 @@ int encode_color(int R, int G, int B)
     return (color);
 }
 
-void init_mlx(t_data *img, int xres, int yres)
+void init_mlx(t_img *img, int xres, int yres)
 // inits mlx, creates a window and an image
 {
     img->mlx = mlx_init();
@@ -44,7 +44,7 @@ void init_mlx(t_data *img, int xres, int yres)
     img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
 }
 
-void fill_screen(t_data *img, int xres, int yres)
+void fill_screen(t_img *img, int xres, int yres)
 {
 int i;
 int j;
@@ -61,7 +61,7 @@ while(i < xres)
 }
 }
 
-void display_wall(t_data *img, t_ray ray, int x)
+void display_wall(t_img *img, t_ray ray, int x)
 {
     int j;
 
