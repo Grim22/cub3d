@@ -45,5 +45,6 @@ int compute_wall(int resY, t_ray *ray);
 void print_ray_info(t_ray ray);
 int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane);
 void display_wall(t_img *img, t_ray ray, int x);
+void fill_ceiling_floor(t_img *img, t_param params);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 20:59:39 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/14 18:52:18 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,27 @@ void display_wall(t_img *img, t_ray ray, int x)
     {
         my_mlx_pixel_put(img, x, j, ray.color);
         j++;
+    }
+}
+
+void fill_ceiling_floor(t_img *img, t_param params)
+{
+    int i;
+    int j;
+    
+    i = 0;
+    while(i < params.res.x)
+    {
+        j = 0;
+        while(j< params.res.y)
+        {
+            if(j < params.res.y / 2)
+                my_mlx_pixel_put(img, i, j, params.col_F);
+            else
+                my_mlx_pixel_put(img, i, j, params.col_C);
+            j++;
+        }
+        i++;
     }
 }
 

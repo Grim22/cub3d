@@ -17,8 +17,17 @@ void my_mlx_pixel_put(t_img *data, int x, int y, int color)
     char    *dst;
 
     dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-    *(unsigned int*)dst = color;
+    *(unsigned int*)dst = color; // marche aussi avec int. Pas compris pourquoi unsigned
 }
+
+void my_mlx_pixel_get(t_img *data, int x, int y, int *color)
+{
+    char *dst;
+
+    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+    color = (int *)dst;
+}
+
 
 int encode_color(int R, int G, int B)
 {
@@ -42,21 +51,4 @@ void init_mlx(t_img *img, int xres, int yres)
     img->win = mlx_new_window(img->mlx, xres, yres, "Test");
     img->img = mlx_new_image(img->mlx, xres, yres);
     img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
-}
-
-void fill_screen(t_img *img, int xres, int yres)
-{
-int i;
-int j;
-i = 0;
-while(i < xres)
-{
-    j = 0;
-    while(j < yres)
-    {
-        my_mlx_pixel_put(img, i, j, encode_color((int)(i / (float)xres * 255), (int)(j / (float)yres * 255), 0));
-        j++;
-    }
-    i++;
-}
 }

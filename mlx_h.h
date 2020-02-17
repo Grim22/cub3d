@@ -55,6 +55,6 @@ typedef struct  s_img {
 void my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int encode_color(int R, int G, int B);
 void init_mlx(t_img *img, int xres, int yres);
-void fill_screen(t_img *img, int xres, int yres);
+void my_mlx_pixel_get(t_img *data, int x, int y, int *color);
 
 #endif

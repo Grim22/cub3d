@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 19:49:43 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/14 19:24:38 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ int compute_wall(int resY, t_ray *ray)
     if(ray->drawEnd >= resY)
         ray->drawEnd = resY - 1;
     if(ray->side == 1)
-        ray->color = 0xFFFF00;
+        ray->color = 0x013300;
     else
-        ray->color = 0x5FFFFF00;
+        ray->color = 0x016400;
     return(0);
 }
 
@@ -111,7 +111,8 @@ int cast_rays(t_game *game)
     set_pos_dir_plane(&ray, game->params);
     //ft_print_map(game->params.map);
     //compute_plane(ray.dir, FOV, &plane);
-    fill_screen(&game->img, game->params.res.x, game->params.res.y); // background color
+    //fill_screen(&game->img, game->params.res.x, game->params.res.y); // background color
+    fill_ceiling_floor(&game->img, game->params); // background color
     i = 0;
     while(i < game->params.res.x)
     {
@@ -126,6 +127,7 @@ int cast_rays(t_game *game)
             //print_ray_info(ray);
         i++;
     }
+    //mlx_destroy_image(game->img.mlx, game->img.win);
     mlx_put_image_to_window(game->img.mlx, game->img.win, game->img.img, 0, 0);
     return(1);
 }

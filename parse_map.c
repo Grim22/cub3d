@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 18:29:04 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/14 12:08:14 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,7 @@ int ft_fill_plane(t_cord_f *plane, t_cord_f dir)
     else
         bool_x = 1;
     plane->x = bool_x * tan(FOV/2);
-    plane->y = bool_y * tan(FOV / 2);
-    printf("py: %f\n", plane->y);
-    printf("px: %f\n", plane->x);
+    plane->y = bool_y * tan(FOV/2);
     return(0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:26 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 20:45:01 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/14 12:41:34 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,18 @@ void print_vect(t_cord_f a)
     printf("y: %f\n", a.y);
 }
 
-void rotate_dir(float *x, float *y, float angle)
+void rotate_dir(t_cord_f *vec, float angle)
 {
     float tmpx;
     float tmpy;
 
-    printf("initial x: %f\n", *x);
-    printf("initial y: %f\n", *y);
+    //printf("initial x: %f\n", *x);
+    //printf("initial y: %f\n", *y);
     angle = angle * M_PI / 180;
-    tmpx = (*x);
-    tmpy = (*y);
-    (*x) = cos(angle) * tmpx - sin(angle) * tmpy;
-    (*y) = sin(angle) * tmpx + cos(angle) * tmpy;
-    printf("final x: %f\n", *x);
-    printf("final y: %f\n", *y);
+    tmpx = vec->x;
+    tmpy = vec->y;
+    vec->x = cos(angle) * tmpx - sin(angle) * tmpy;
+    vec->y = sin(angle) * tmpx + cos(angle) * tmpy;
+    //printf("final x: %f\n", *x);
+    //printf("final y: %f\n", *y);
 }

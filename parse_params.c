@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:12:34 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 16:12:35 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/14 19:16:08 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,14 @@ int ft_fill_res(char **words, t_cord_i *reso)
         i++;
     if (i != 3 || !ft_isdigit_str(words[1]) || !ft_isdigit_str(words[2]))
         return(-1);
-    reso->x = ft_atoi(words[1]);
-    reso->y = ft_atoi(words[2]);
+    if (ft_atoi(words[1]) < RES_MAX_X)
+        reso->x = ft_atoi(words[1]);
+    else
+        reso->x = RES_MAX_X;
+    if (ft_atoi(words[2]) < RES_MAX_Y)
+        reso->y = ft_atoi(words[2]);
+    else
+        reso->y = RES_MAX_Y;
     return(0);
 }
 
