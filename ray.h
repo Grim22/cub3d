@@ -26,8 +26,14 @@ typedef struct  s_ray{
     //cote du carré touché (horizontal 0 ou vertical 1)
     int             side;
     int             hit;
-    //distance to wall
-    float           wallDist;
+    // distance (projection normale) entre pos et le mur
+    float	    wallDist;
+    // coordonnee x ou y (en fonction du side) du point ou le mur a ete touche moins cordonnee x ou y du mur touche --> nombre entre 0 et 1
+    float           wallX;
+    // coordonnee en x dans la texture correspondant a wallX: texX = wallX * texw. Fixe pour chaque ray
+    int		    texX;
+    // coordonnee en y dans la texture pour chaque pour chaque point de la ligne verticale correspondant au ray)
+    int		    texY;
     //hauteur du mur
     int             lineHeight;
     //lowest and highest pixel to fill (du mur) in current stripe
@@ -44,7 +50,8 @@ int perform_DDA(char **map, t_ray *ray);
 int compute_wall(int resY, t_ray *ray);
 void print_ray_info(t_ray ray);
 int compute_plane(t_cord_f dir, float FOV, t_cord_f *plane);
-void display_wall(t_img *img, t_ray ray, int x);
+void display_wall(t_img *img, t_ray ray, int x, int *tex);
 void fill_ceiling_floor(t_img *img, t_param params);
+void compute_texX(t_ray *ray);
 
 #endif

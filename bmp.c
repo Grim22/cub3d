@@ -1,7 +1,5 @@
 #include "cub.h"
 
-//from Glagan github
-
 static void set_int_in_char(char *ptr, int nbr)
 {
 	int *ptr_i;
@@ -16,14 +14,12 @@ static int  write_bmp_header(int fd, int filesize, t_game *game)
 	char			bmpfileheader[54];
 
 // pourquoi unsigned char ?
-	printf("header\n");
 	i = 0;
 	while (i < 54)
 		bmpfileheader[i++] = 0; // met les champs a zero par defaut
 	bmpfileheader[0] = 'B';
 	bmpfileheader[1] = 'M';
 	set_int_in_char(bmpfileheader + 2, filesize); // a ladrresse bmp[2] on veut un int (4 bytes) qui contient la taille totale du fichier
-	printf("fsize: %d\n", filesize);
 	bmpfileheader[10] = (char)54; // offset
 	bmpfileheader[14] = (char)40; // 54 - 14
 	set_int_in_char(bmpfileheader + 18, game->params.res.x); // img width
@@ -40,10 +36,7 @@ static int get_color(t_game *game, int x, int y) // recupere la couleur du pixel
 	int	rgb;
 	int	color;
 
-	my_mlx_pixel_get(game->img.img, x, y, &color);
-    //color = *(int*)(game->img.addr
-	//		+ (4 * game->params.res.x * (game->params.res.y - 1 - y))
-	//		+ (4 * x));
+	my_mlx_pixel_get(game->img, x, y, &color);
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF); // on met R/G et B sur les 3 premiers bytes de l'int (<> initialement l'int est de type ARGB)
 	return (rgb);
 }
@@ -54,27 +47,25 @@ int write_bmp_data(int file, t_game *game)
 	int j;
 	int color;
 	int zero;
+	int pad;
 
-	i = 0;
+	pad = 0;
+	if ((game->params.res.x * 3) % 4)
+		pad = 4 - ((game->params.res.x * 3) % 4);
+	j = game->params.res.y - 1;
 	zero = 0;
-	while(i < game->params.res.x)
+	while(j >= 0)
 	{
-		j = 0;
-		while(j <= game->params.res.y)
+		i = 0;
+		while(i < game->params.res.x)
 		{
-			if (j == game->params.res.y && game->params.res.y % 4)
-			{
-				printf("padj: %d\n", j);
-				write(file, &zero, game->params.res.y % 4);
-			}
-			else
-			{
-				color = get_color(game, i, j);
-				write(file, &color, 3); // ecrit en 3*i + 3*j (sachant que la premiere adresse est celle du point en bas a gauche de limage, la deuxieme celui en (0,1)...)
-			}
-			j++;
+			color = get_color(game, i, j);
+			write(file, &color, 3); // ecrit en 3*i + 3*j (sachant que la premiere adresse est celle du point en bas a gauche de limage, la deuxieme celui en (0,1)...)
+			if (i == game->params.res.x - 1 && pad)
+				write(file, &zero, pad);
+			i++;
 		}
-		i++;
+		j--;
 	}
 	return(1);
 }
@@ -83,8 +74,12 @@ int     save_bmp(t_game *game)
 {
 	int			filesize;
 	int			file;
+	int pad;
 
-	filesize = 54 + (((3 * game->params.res.y + (game->params.res.y % 4)) * game->params.res.x));
+	pad = 0;
+	if ((game->params.res.x * 3) % 4)
+		pad = 4 - ((game->params.res.x * 3) % 4);
+	filesize = 54 + ((3 * game->params.res.x + pad) * game->params.res.y);
 	if ((file = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC | O_APPEND, S_IRWXU)) < 0)
 		return (0);
 	if (!write_bmp_header(file, filesize, game))

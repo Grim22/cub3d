@@ -16,9 +16,12 @@
 #define FOV (66 * M_PI / 180)
 #define SPEED_M 4  // mvmt speed (plus cest grand MOINS on va vite)
 #define SPEED_R 5 // rotation speed (plus cest grand PLUS on tourne vite)
+#define texW 64
+#define texH 64
 typedef struct  s_game{
     t_param         params;
     t_img           img;
+    int             save;
 }               t_game;
 
 int cast_rays(t_game *game);

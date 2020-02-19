@@ -20,12 +20,16 @@ void my_mlx_pixel_put(t_img *data, int x, int y, int color)
     *(unsigned int*)dst = color; // marche aussi avec int. Pas compris pourquoi unsigned
 }
 
-void my_mlx_pixel_get(t_img *data, int x, int y, int *color)
+void my_mlx_pixel_get(t_img img, int x, int y, int *color)
 {
     char *dst;
+    int *dst_i;
 
-    dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-    color = (int *)dst;
+    dst = img.addr + (y * img.line_length + x * (img.bpp / 8));
+    dst_i = (int *)dst;
+    //printf("*dst_i %d\n", *dst_i);
+    *color = *dst_i;
+    //printf("x y: %d %d\n", x, y);
 }
 
 
@@ -48,7 +52,7 @@ void init_mlx(t_img *img, int xres, int yres)
 // inits mlx, creates a window and an image
 {
     img->mlx = mlx_init();
-    img->win = mlx_new_window(img->mlx, xres, yres, "Test");
+    img->win = mlx_new_window(img->mlx, xres, yres, "Cub3d");
     img->img = mlx_new_image(img->mlx, xres, yres);
     img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
 }

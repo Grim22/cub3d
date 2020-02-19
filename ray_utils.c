@@ -6,11 +6,26 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/14 18:52:18 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 10:35:32 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+
+void compute_texX(t_ray *ray)
+{
+    if (ray->side == 0) 
+        ray->wallX = ray->pos.y + ray->wallDist * ray->dir.y;
+    else
+	    ray->wallX = ray->pos.x + ray->wallDist * ray->dir.x;
+    ray->wallX = ray->wallX - (int)ray->wallX;
+
+    ray->texX = (int)(ray->wallX * (float)texW);
+    //if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+    //if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+}
+
 
 void set_pos_dir_plane(t_ray *ray, t_param params)
 {
@@ -19,14 +34,20 @@ void set_pos_dir_plane(t_ray *ray, t_param params)
     //ray->plane = params.plane;
 }
 
-void display_wall(t_img *img, t_ray ray, int x)
+void display_wall(t_img *img, t_ray ray, int x, int *tex)
 {
     int j;
+    float step;
+    float texY;
+    // coordonnee en y dans la texture pour chaque pour chaque point de la ligne verticale correspondant au ray)
 
+    step = (float)texH / (float)ray.lineHeight;
+    texY = 0; 
     j = ray.drawStart;
     while (j < ray.drawEnd)
     {
-        my_mlx_pixel_put(img, x, j, ray.color);
+        my_mlx_pixel_put(img, x, j, tex[texW * (int)texY + ray.texX]);
+	texY = texY + step;
         j++;
     }
 }

@@ -33,6 +33,7 @@ typedef struct  s_param{
     char            *sprite;
     int             col_F;
     int             col_C;
+    int		    *tex; // pour tester textures
 }               t_param;
 
 int ft_init_parse(t_param *params, char *filename);
