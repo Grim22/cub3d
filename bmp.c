@@ -69,7 +69,6 @@ int write_bmp_data(int file, t_game *game)
 			}
 			else
 			{
-				//printf("colj: %d\n", count);
 				color = get_color(game, i, j);
 				write(file, &color, 3); // ecrit en 3*i + 3*j (sachant que la premiere adresse est celle du point en bas a gauche de limage, la deuxieme celui en (0,1)...)
 			}
@@ -86,7 +85,6 @@ int     save_bmp(t_game *game)
 	int			file;
 
 	filesize = 54 + (((3 * game->params.res.y + (game->params.res.y % 4)) * game->params.res.x));
-	printf("Hello\n");
 	if ((file = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC | O_APPEND, S_IRWXU)) < 0)
 		return (0);
 	if (!write_bmp_header(file, filesize, game))

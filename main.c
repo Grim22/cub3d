@@ -6,12 +6,12 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/17 18:39:18 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 10:11:58 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-/*
+
 int main(int ac, char **av)
 {
     t_game game;
@@ -32,8 +32,8 @@ int main(int ac, char **av)
     //mlx_destroy_image(img.mlx, img.img);
     mlx_loop(game.img.mlx);
     ft_free_map(game.params.map);
-}*/
-
+}
+/*
 int main(int ac, char **av)
 {
     t_game game;
@@ -49,4 +49,4 @@ int main(int ac, char **av)
     init_mlx(&game.img, game.params.res.x, game.params.res.y);
     cast_rays(&game);
     save_bmp(&game);
-}
+}*/
