@@ -49,7 +49,7 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map);
 int ft_fill_plane(t_cord_f *plane, t_cord_f dir);
 int ft_check_map(char **map);
 int set_dir(t_cord_f *dir, char orientation);
-int ft_free_map(char **map);
+int ft_free_params(t_param params);
 void ft_print_map(char **map);
 
 #endif

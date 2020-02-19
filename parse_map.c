@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/14 12:08:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 15:28:27 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,7 @@ int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
     return(0);
 }
 
-int ft_free_map(char **map) //appele a la fin du programme
-{
-    int i;
 
-    i = 0;
-    while((map)[i])
-    {
-        free((map)[i]);
-        i++;
-    }
-    free(map);
-    return(0);
-}
 
 void ft_print_map(char **map)
 {

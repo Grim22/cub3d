@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/19 13:52:25 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 19:06:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int ac, char **av)
 	int xycolor;
 	int ycolor;
 
-    // initialiasation des textures
+    // initialiasation des textures //
     int i;
     int j;
 	i = 0;
@@ -54,19 +54,59 @@ int main(int ac, char **av)
 		}
 		i++;
     }
-    if (ac > 3 || ac < 2)
-    {
-        ft_putstr_fd("Error \n: Wrong number of arguments\n", 1);
-        return(0);
-    }
-	game.save = 0;
-    if ((ret = ft_init_parse(&game.params, av[1])) != 1)
-        return(0);
     game.params.tex1 = tex;
     game.params.tex2 = tex1;
     game.params.tex3 = tex2;
     game.params.tex4 = tex3;
+	////////////////////////////////
+
+	
+	game.save = 0;
+	if (ac > 3 || ac < 2)
+    {
+        ft_putstr_fd("Error \n: Wrong number of arguments\n", 1);
+        return(0);
+    }
+    if ((ret = ft_init_parse(&game.params, av[1])) != 1)
+        return(0);
     init_mlx(&game.img, game.params.res.x, game.params.res.y);
+
+
+	//texture to image to int */////////////////////
+	int xpm_text_W;
+	int xpm_text_H;
+	void *xpm_img;
+	void *xpm_win;
+	char *address;
+	int *tex_eagle;
+	int e_bpp;
+	int e_line_size;
+	int e_endian;
+	char *tmp;
+	int *tmp_i;
+
+	// optimiser: mettre dans une structure de type t_img 
+		
+	xpm_img = mlx_xpm_file_to_image(game.img.mlx, "eagle.xpm", &xpm_text_W, &xpm_text_H);
+	tex_eagle = malloc(xpm_text_W * xpm_text_H * sizeof(int));
+	address = mlx_get_data_addr(xpm_img, &e_bpp, &e_line_size, &e_endian);
+	i = 0;
+	while(i < xpm_text_W)
+	{
+		j = 0;
+		while(j < xpm_text_H)
+		{
+            tmp = address + (j * e_line_size + i * (e_bpp / 8)); // utiliser my_mlx_pixel_get (prend un t_img)
+			tmp_i = (int *)tmp;
+			tex_eagle[xpm_text_W * j + i] = *tmp_i;
+			j++;
+		}
+		i++;
+	}
+	game.params.tex4 = tex_eagle;
+	///////////////////////////////////////////////////
+
+	
     if (ac == 3)
     {
     	if (ft_check_save(av[2], &game) == -1)
@@ -78,9 +118,8 @@ int main(int ac, char **av)
     mlx_hook(game.img.win, X_EVENT_EXIT, 0, &ft_press_close, 0);
     mlx_hook(game.img.win, X_EVENT_KEY_PRESS, 0, &ft_key_events, &game);
     mlx_loop_hook(game.img.mlx, &cast_rays, &game);
-    //mlx_destroy_image(img.mlx, img.img);
     mlx_loop(game.img.mlx);
-    ft_free_map(game.params.map);
+    ft_free_params(game.params);
 }
 
 /*

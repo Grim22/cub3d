@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 18:32:52 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:54:04 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int ft_scan_id(char *line)
     return(-1);
 }
 
-void ft_scan_last(char *line, unsigned char *last)
+void ft_fill_last(char *line, unsigned char *last)
 {   
     if (ft_strlen(line) < 2)
 	    return ; 
@@ -72,13 +72,13 @@ int ft_scan_last_error(int ret, int map_on, int last)
     if (map_on && ret != 1 && ret) 
     // cas 2) des param sont donnes en dessous de la map (en doublons donc): on a commence la map et la ligne nest ni une ligne de map ni une ligne vide
     {
-	    ft_putstr_fd("Error\nParameter(s) given after map", 1);
+	    ft_putstr_fd("Error\nParameter(s) given after map or inside map", 1);
 	    return(-1);
     }
     if (map_on && ret == 0) 
-    // cas 3) lignes vides dans la map
+    //cas 3) lignes vides dans la map
     {
-	    ft_putstr_fd("Error\nEmpty line in map or after map", 1);
+	    ft_putstr_fd("Error\nEmpty line inside map or after map (make sure there is no \\n at the end of the map)", 1);
 	    return(-1);
     }
     return(0);
@@ -90,17 +90,17 @@ int ft_scan(char *line)
     static char map_on;
     int ret;
 
-    if ((ret = ft_scan_id(line)) == -1)
+    if ((ret = ft_scan_id(line)) == -1) // on verifie quon a bien le bon identifier en debut de ligne
     {
 	    ft_putstr_fd("Error\nWrong line:\n", 1);
 	    ft_putstr_fd(line, 1);
 	    return(-1);
     }
-    ft_scan_last(line, &last);
-    if (ft_scan_last_error(ret, map_on, last) == -1)
+    ft_fill_last(line, &last); // on rempli l'int last, qui va nous permettre de savoir si tous les param ont ete donnes avant la map
+    if (ft_scan_last_error(ret, map_on, last) == -1) // on gere les differents cas d'erreurs lies a last
         return(-1);
-    if (ret == 1)
-	    map_on = 1;
+    if (ret == 1) // ret=1 signifie que la ligne donnee contient le debut de la map
+	    map_on = 1; // on set map_on a 1 a partir du moment ou la ligne de debut de map a ete lue
     return(ret);
 }
 
@@ -123,6 +123,35 @@ int check_filename(char *filename)
     free(ext);
     return(fd);
 }
+int ft_free_params(t_param params) //appele a la fin du programme
+{
+    int i;
+    char **map;
+    
+    map = params.map;
+    i = 0;
+    while((map)[i])
+    {
+        free((map)[i]);
+        i++;
+    }
+    free(map);
+    free(params.NO);
+    free(params.SO);
+    free(params.WE);
+    free(params.EA);
+    free(params.sprite);
+    return(0);
+}
+
+void ft_init_params(t_param *params)
+{
+    params->NO = NULL;
+    params->SO = NULL;
+    params->WE = NULL;
+    params->EA = NULL;
+    params->sprite = NULL;
+}
 
 int ft_init_parse(t_param *params, char *filename)
 {
@@ -132,6 +161,7 @@ int ft_init_parse(t_param *params, char *filename)
     t_list *lst;
     
     lst = NULL;
+    ft_init_params(params); // on met a NULL les pointeurs char correspondant aux chemins vers les textures, afin de pouvoir free le pointeur si il existe, dans le cas ou le param est donne en doublon
     if ((fd = check_filename(filename)) == -1)
         return(-1);
     while((i = get_next_line(fd, &line)))

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:12:34 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/14 19:16:08 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:59:01 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,35 @@ int ft_fill_text(int indice, char **words, t_param *params)
     if(i != 2) // i != 2 || !ft_check_path(words[1]) --> fonction pour verifier que le path est correct ?
         return(-1);
     if (indice == 5)
-        params->sprite = words[1];
+    {
+        if (params->sprite)
+            free(params->sprite);
+        params->sprite = ft_strdup(words[1]);
+    }
     if (indice == 6)
-        params->NO = words[1];
+    {
+        if (params->NO)
+            free(params->NO);
+        params->NO = ft_strdup(words[1]);
+    }
     if (indice == 7)
-        params->SO = words[1];
+    {
+        if (params->SO)
+            free(params->SO);
+        params->SO = ft_strdup(words[1]);
+    }
     if (indice == 8)
-        params->WE = words[1];
+    {
+        if (params->WE)
+            free(params->WE);
+        params->WE = ft_strdup(words[1]);
+    }
     if (indice == 9)
-        params->EA = words[1];
+    {
+        if (params->EA)
+            free(params->EA);
+        params->EA = ft_strdup(words[1]);
+    }
     return(0);
 }
 
