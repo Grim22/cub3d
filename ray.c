@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/19 10:52:11 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 13:51:09 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,8 @@ int cast_rays(t_game *game)
 {
     t_ray ray;
     int i;
-    // plane pos et dir sont initialises dans param. Ils existent aussi dans ray. Cest necessaire ?
-    // en cas de changement de direction / position, on change plane/pos/dir ->voir comment cest gere
-   // normal que set_pos_dir_plane ne set pas le plane ?
-    set_pos_dir_plane(&ray, game->params);
+
+    set_pos_dir_in_ray(&ray, game->params); // pos et dir sont initialises dans param, on les copie ici dans ray car certains calculs ci dessous sont effectues a partir de ray
     fill_ceiling_floor(&game->img, game->params);
     i = 0;
     while(i < game->params.res.x)
@@ -120,13 +118,15 @@ int cast_rays(t_game *game)
         perform_DDA(game->params.map, &ray);
         compute_wall_height(game->params.res.y, &ray);
         compute_texX(&ray);
-        display_wall(&game->img, ray, i, game->params.tex);
+        /*if (i == 100)
+        {
+            printf("WallX: %f\n", ray.wallX);
+            printf("texX: %d\n", ray.texX);
+        }*/
+        display_wall(&game->img, ray, i, game->params);
         i++;
     }
     if (!game->save) //n'affiche pas si "save" est donne en argument
-    {
-        printf("put\n");
         mlx_put_image_to_window(game->img.mlx, game->img.win, game->img.img, 0, 0);
-    }
     return(1);
 }

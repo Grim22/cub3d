@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/19 10:48:14 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/19 13:52:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,30 @@ int main(int ac, char **av)
     t_game game;
     int ret;
     int tex[texH * texH];
+    int tex1[texH * texH];
+    int tex2[texH * texH];
+    int tex3[texH * texH];
+	int xycolor;
+	int ycolor;
 
-    // initialiasation dune texture correspondant a une croix rouge sur fond noir
+    // initialiasation des textures
     int i;
     int j;
 	i = 0;
     while(i < texW)
     {
-	j = 0;
-	while(j < texH)
-	{
-    	    tex[texW * j + i] = 65536 * 254 * (i != j && i != texW - j);
-	    j++;
-	}
-	i++;
+		j = 0;
+		while(j < texH)
+		{
+			ycolor = i * 256 / texH;
+    		xycolor = j * 128 / texH + i * 128 / texW;
+			tex[texW * j + i] = 65536 * 254 * (i != j && i != texW - j); // red with black cross
+			tex1[texW * j + i] = 65536 * 192 * (i % 16 && j % 16); // red bricks
+			tex2[texW * j + i] = 256 * ycolor; // green gradient
+			tex3[texW * j + i] = 256 * xycolor + 65536 * xycolor; // sloped yellow gradient
+			j++;
+		}
+		i++;
     }
     if (ac > 3 || ac < 2)
     {
@@ -52,7 +62,10 @@ int main(int ac, char **av)
 	game.save = 0;
     if ((ret = ft_init_parse(&game.params, av[1])) != 1)
         return(0);
-    game.params.tex = tex;
+    game.params.tex1 = tex;
+    game.params.tex2 = tex1;
+    game.params.tex3 = tex2;
+    game.params.tex4 = tex3;
     init_mlx(&game.img, game.params.res.x, game.params.res.y);
     if (ac == 3)
     {
