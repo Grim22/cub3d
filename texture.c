@@ -37,7 +37,7 @@ int ft_get_textures(t_game *game)
     {
         if (ft_xpm_to_inttab(&game->params.tex[i].tex, game->params.tex[i].path, game->img.mlx) == -1)
         {
-            ft_putstr_fd("Error/nUnable to use texture:", 1);
+            ft_putstr_fd("Error\nUnable to use texture: ", 1);
             ft_putstr_fd(game->params.tex[i].path, 1);
             return(-1);
         }

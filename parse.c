@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/20 12:23:46 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/20 16:15:34 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,22 +130,28 @@ int ft_free_params(t_param params) //appele a la fin du programme
     
     map = params.map;
     i = 0;
-    while((map)[i])
+    if (map)
     {
-        free((map)[i]);
+        while((map)[i])
+        {
+            free((map)[i]);
+            i++;
+        }
+        free(map);
+    }
+    i = 0;
+    while(i < 5)
+    {
+        if (params.tex[i].path)
+            free(params.tex[i].tex);
         i++;
     }
-    free(map);
-    free(params.tex[NO].path);
-    free(params.tex[SO].path);
-    free(params.tex[WE].path);
-    free(params.tex[EA].path);
-    free(params.tex[SPRIT].path);
     return(0);
 }
 
 void ft_init_params(t_param *params)
 {
+    params->map = NULL;
     params->tex[NO].path = NULL;
     params->tex[SO].path = NULL;
     params->tex[WE].path = NULL;

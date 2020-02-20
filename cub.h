@@ -18,6 +18,9 @@
 #define SPEED_R 5 // rotation speed (plus cest grand PLUS on tourne vite)
 #define texW 64
 #define texH 64
+#define ERROR -1
+#define SUCCESS 1
+
 typedef struct  s_game{
     t_param         params;
     t_img           img;

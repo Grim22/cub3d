@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/19 15:28:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/20 15:38:51 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,19 +94,8 @@ int ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map)
 
 int ft_fill_plane(t_cord_f *plane, t_cord_f dir)
 {
-    // determination du vecteur plan image:
-        // dir: perpendiculaire a direction du joueur = dir.
-        // valeur: plane / 2
-    
-    int bool_x = 0;
-    int bool_y = 0;
-    
-    if (dir.x)
-        bool_y = 1;
-    else
-        bool_x = 1;
-    plane->x = bool_x * tan(FOV/2);
-    plane->y = bool_y * tan(FOV/2);
+    plane->x = -dir.y * tan(FOV/2);
+    plane->y = dir.x * tan(FOV/2);
     return(0);
 }
 

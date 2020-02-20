@@ -48,10 +48,15 @@ int encode_color(int R, int G, int B)
     return (color);
 }
 
-void init_mlx(t_img *img, int xres, int yres) //gerer les erreurs
+int init_mlx(t_img *img, int xres, int yres) //gerer les erreurs
 {
-    img->mlx = mlx_init();
-    img->win = mlx_new_window(img->mlx, xres, yres, "Cub3d");
-    img->img = mlx_new_image(img->mlx, xres, yres);
-    img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian);
+    if (!(img->mlx = mlx_init()))
+        return(ERROR);
+    if (!(img->win = mlx_new_window(img->mlx, xres, yres, "Cub3d")))
+        return(ERROR);
+    if (!(img->img = mlx_new_image(img->mlx, xres, yres)))
+        return(ERROR);
+    if (!(img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian)))
+        return(ERROR);
+    return(SUCCESS);
 }

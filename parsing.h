@@ -39,13 +39,8 @@ typedef struct  s_param{
     t_cord_f        plane;
     char            **map;
     t_tex           tex[5]; // dans lordre de lenum: tex[0] = SPRIT, tex[1] = NO...
-    char            *sprite;
     int             col_F;
     int             col_C;
-    int		    *tex1; // pour tester textures
-    int		    *tex2; // pour tester textures
-    int		    *tex3; // pour tester textures
-    int		    *tex4; // pour tester textures
 }               t_param;
 
 int ft_init_parse(t_param *params, char *filename);

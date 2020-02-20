@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/20 12:06:49 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/20 15:32:48 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int cast_rays(t_game *game)
     t_ray ray;
     int i;
 
+    printf("dirX %f dirY %f\n", game->params.dir.x, game->params.dir.y);
+    printf("planeX %f planeY %f\n", game->params.plane.x, game->params.plane.y);
     set_pos_dir_in_ray(&ray, game->params); // pos et dir sont initialises dans param, on les copie ici dans ray car certains calculs ci dessous sont effectues a partir de ray
     fill_ceiling_floor(&game->img, game->params);
     i = 0;
@@ -118,11 +120,6 @@ int cast_rays(t_game *game)
         perform_DDA(game->params.map, &ray);
         compute_wall_height(game->params.res.y, &ray);
         compute_texX(&ray);
-        /*if (i == 100)
-        {
-            printf("WallX: %f\n", ray.wallX);
-            printf("texX: %d\n", ray.texX);
-        }*/
         display_wall(&game->img, ray, i, game->params);
         i++;
     }
