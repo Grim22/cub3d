@@ -28,5 +28,5 @@ int cast_rays(t_game *game);
 int ft_press_close(void *param); 
 int ft_key_events(int key, t_game *game);
 int save_bmp(t_game *game);
-
+int ft_get_textures(t_game *game);
 #endif

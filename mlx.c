@@ -48,8 +48,7 @@ int encode_color(int R, int G, int B)
     return (color);
 }
 
-void init_mlx(t_img *img, int xres, int yres)
-// inits mlx, creates a window and an image
+void init_mlx(t_img *img, int xres, int yres) //gerer les erreurs
 {
     img->mlx = mlx_init();
     img->win = mlx_new_window(img->mlx, xres, yres, "Cub3d");

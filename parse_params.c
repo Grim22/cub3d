@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:12:34 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/19 16:59:01 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/20 12:12:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,46 +58,37 @@ int ft_fill_res(char **words, t_cord_i *reso)
         reso->y = RES_MAX_Y;
     return(0);
 }
-
-int ft_fill_text(int indice, char **words, t_param *params)
+int ft_fill_text_path(int indice, char **words, t_param *params)
 {
- int i;
+    int i;
     
     i = 0;
     while(words[i])
         i++;
-    if(i != 2) // i != 2 || !ft_check_path(words[1]) --> fonction pour verifier que le path est correct ?
+    if(i != 2)
         return(-1);
-    if (indice == 5)
+    i = 5;
+    while (i < 10)
     {
-        if (params->sprite)
-            free(params->sprite);
-        params->sprite = ft_strdup(words[1]);
+        if (indice == i)
+        {
+            if (params->tex[i - 5].path)
+                free(params->tex[i - 5].path);
+            if (!(params->tex[i - 5].path = ft_strdup(words[1])))
+                return(-1);
+            return(i - 5);
+        }
+        i++;
     }
-    if (indice == 6)
-    {
-        if (params->NO)
-            free(params->NO);
-        params->NO = ft_strdup(words[1]);
-    }
-    if (indice == 7)
-    {
-        if (params->SO)
-            free(params->SO);
-        params->SO = ft_strdup(words[1]);
-    }
-    if (indice == 8)
-    {
-        if (params->WE)
-            free(params->WE);
-        params->WE = ft_strdup(words[1]);
-    }
-    if (indice == 9)
-    {
-        if (params->EA)
-            free(params->EA);
-        params->EA = ft_strdup(words[1]);
-    }
+    return(-1);
+}
+
+int ft_fill_text(int indice, char **words, t_param *params)
+{
+    int tex_num;
+    
+    if ((tex_num = ft_fill_text_path(indice, words, params)) == -1)
+        return(-1);
     return(0);
 }
 

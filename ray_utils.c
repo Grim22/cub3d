@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/19 14:22:04 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/20 15:11:22 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void display_wall(t_img *img, t_ray ray, int x, t_param params)
     float texY;
     int *tex;
     // coordonnee en y dans la texture pour chaque pour chaque point de la ligne verticale correspondant au ray)
-    if (ray.side == 0 && ray.vect.x > 0)
-        tex = params.tex1;
-    else if (ray.side == 0 && ray.vect.x < 0)
-        tex = params.tex2;
-    else if (ray.side == 1 && ray.vect.y > 0)
-        tex = params.tex3;
-    else if (ray.side == 1 && ray.vect.y < 0)
-        tex = params.tex4;
+    if (ray.side == 0 && ray.vect.x > 0) // S
+        tex = params.tex[SO].tex;
+    else if (ray.side == 0 && ray.vect.x < 0) // N
+        tex = params.tex[NO].tex;
+    else if (ray.side == 1 && ray.vect.y > 0) // E
+        tex = params.tex[EA].tex;
+    else if (ray.side == 1 && ray.vect.y < 0) // W
+        tex = params.tex[WE].tex;
     step = (float)texH / (float)ray.lineHeight;
     texY = 0; 
     j = ray.drawStart;

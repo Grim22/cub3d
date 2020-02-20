@@ -13,12 +13,24 @@
 #define _WE 128
 #define _EA 1
 
-
+enum    textures
+{
+    SPRIT,
+    NO,
+    SO,
+    WE,
+    EA
+};
 
 typedef struct  s_cord_i{
     int           x;
     int           y;
 }               t_cord_i;
+
+typedef struct  s_tex{
+    char          *path;
+    int           *tex;
+}               t_tex;
 
 typedef struct  s_param{
     t_cord_i        res;
@@ -26,10 +38,7 @@ typedef struct  s_param{
     t_cord_f        dir;
     t_cord_f        plane;
     char            **map;
-    char            *NO;
-    char            *SO;
-    char            *WE;
-    char            *EA;
+    t_tex           tex[5]; // dans lordre de lenum: tex[0] = SPRIT, tex[1] = NO...
     char            *sprite;
     int             col_F;
     int             col_C;
