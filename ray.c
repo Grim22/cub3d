@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/21 17:11:05 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/21 18:34:18 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int perform_DDA(char **map, t_ray *ray)
             ray->side = 1;
         }
         //Check if ray has hit a wall
-        if (map[ray->mapX][ray->mapY] == '1' || map[ray->mapX][ray->mapY] == '2') 
+        if (map[ray->mapX][ray->mapY] == '1') 
             ray->hit = 1;
         count++;
     }
@@ -120,12 +120,12 @@ int cast_rays(t_game *game)
         compute_sideDist_step(&ray);
         perform_DDA(game->params.map, &ray);
         compute_wall_height(game->params.res.y, &ray);
-        //compute_texX(&ray, game->params.tex);
         display_wall(&game->img, &ray, i, game->params);
         buffer[i] = ray.wallDist;
         i++;
     }
     display_sprites(&game->img, game->params, buffer);
+    printf("map: %d\n", game->params.map[(int)game->params.pos.x][(int)game->params.pos.y]);
     if (!game->save) //n'affiche pas si "save" est donne en argument
         mlx_put_image_to_window(game->img.mlx, game->img.win, game->img.img, 0, 0);
     return(1);

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/21 12:37:01 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/21 18:38:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int ft_count_sprites(char **map)
     return(count);
 }
 
-int ft_fill_sprites(t_cord_i **sprites, int *num, char **map)
+int ft_fill_sprites(t_cord_f **sprites, int *num, char **map)
 {
     int count;
     int i;
@@ -138,14 +138,15 @@ int ft_fill_sprites(t_cord_i **sprites, int *num, char **map)
         {
             if (map[i][j] == '2')
             {
-                sprites[0][count].x = i;
-                sprites[0][count].y = j;
+                sprites[0][count].x = i + 0.5;
+                sprites[0][count].y = j + 0.5;
                 count++;
             }
             j++;
         }
         i++;
     } 
+    return(1);
 }
 
 int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
@@ -162,6 +163,7 @@ int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
     ft_fill_dir_pos(&(params->pos), &(params->dir), *map);
     ft_fill_plane(&(params->plane), params->dir);
     ft_fill_sprites(&(params->sprites), &(params->sprite_num), *map);
+    (*map)[(int)params->pos.x][(int)params->pos.y] = '0';
     return(0);
 }
 

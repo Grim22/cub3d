@@ -42,7 +42,7 @@ typedef struct  s_param{
     t_tex           tex[5]; // dans lordre de lenum: tex[0] = SPRIT, tex[1] = NO...
     int             col_F;
     int             col_C;
-    t_cord_i        *sprites;
+    t_cord_f        *sprites;
     int             sprite_num;
 }               t_param;
 
