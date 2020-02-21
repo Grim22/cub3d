@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/20 15:38:51 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/21 12:37:01 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,55 @@ int ft_fill_plane(t_cord_f *plane, t_cord_f dir)
     return(0);
 }
 
+int ft_count_sprites(char **map)
+{
+    int i;
+    int j;
+    int count;
+
+    count = 0;
+    i = 0;
+    while(map[i])
+    {
+        j = 0;
+        while(map[i][j])
+        {
+            if (map[i][j] == '2')
+                count++;
+            j++;
+        }
+        i++;
+    }
+    return(count);
+}
+
+int ft_fill_sprites(t_cord_i **sprites, int *num, char **map)
+{
+    int count;
+    int i;
+    int j;
+    
+    *num = ft_count_sprites(map);
+    *sprites = malloc(*num * sizeof(**sprites));
+    count = 0;
+    i = 0;
+    while(map[i])
+    {
+        j = 0;
+        while(map[i][j])
+        {
+            if (map[i][j] == '2')
+            {
+                sprites[0][count].x = i;
+                sprites[0][count].y = j;
+                count++;
+            }
+            j++;
+        }
+        i++;
+    } 
+}
+
 int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
 {
     if (*lst == NULL)
@@ -112,6 +161,7 @@ int ft_fill_check_map(t_list **lst, char ***map, t_param *params)
         return(-1);
     ft_fill_dir_pos(&(params->pos), &(params->dir), *map);
     ft_fill_plane(&(params->plane), params->dir);
+    ft_fill_sprites(&(params->sprites), &(params->sprite_num), *map);
     return(0);
 }
 

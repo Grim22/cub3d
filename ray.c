@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/20 15:32:48 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/21 17:11:05 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,11 @@ int compute_wall_height(int resY, t_ray *ray)
 int cast_rays(t_game *game)
 {
     t_ray ray;
+    float buffer[game->params.res.x];
     int i;
 
-    printf("dirX %f dirY %f\n", game->params.dir.x, game->params.dir.y);
-    printf("planeX %f planeY %f\n", game->params.plane.x, game->params.plane.y);
+    //printf("dirX %f dirY %f\n", game->params.dir.x, game->params.dir.y);
+    //printf("planeX %f planeY %f\n", game->params.plane.x, game->params.plane.y);
     set_pos_dir_in_ray(&ray, game->params); // pos et dir sont initialises dans param, on les copie ici dans ray car certains calculs ci dessous sont effectues a partir de ray
     fill_ceiling_floor(&game->img, game->params);
     i = 0;
@@ -119,10 +120,12 @@ int cast_rays(t_game *game)
         compute_sideDist_step(&ray);
         perform_DDA(game->params.map, &ray);
         compute_wall_height(game->params.res.y, &ray);
-        compute_texX(&ray);
-        display_wall(&game->img, ray, i, game->params);
+        //compute_texX(&ray, game->params.tex);
+        display_wall(&game->img, &ray, i, game->params);
+        buffer[i] = ray.wallDist;
         i++;
     }
+    display_sprites(&game->img, game->params, buffer);
     if (!game->save) //n'affiche pas si "save" est donne en argument
         mlx_put_image_to_window(game->img.mlx, game->img.win, game->img.img, 0, 0);
     return(1);

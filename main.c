@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/20 19:01:32 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/21 15:49:46 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int exit_game(int ret, char *message, int parse, t_game *game)
     return(ret);
 }
 
+
 int main(int ac, char **av)
 {
     t_game game;
@@ -57,10 +58,10 @@ int main(int ac, char **av)
     	save_bmp(&game);
         return(exit_game(SUCCESS, 0, 1, &game));
     }
-    printf("Hello\n");
     mlx_hook(game.img.win, X_EVENT_EXIT, 0, &ft_press_close, 0);
     mlx_hook(game.img.win, X_EVENT_KEY_PRESS, 0, &ft_key_events, &game);
-    mlx_loop_hook(game.img.mlx, &cast_rays, &game);
+    cast_rays(&game);
+    //mlx_loop_hook(game.img.mlx, &cast_rays, &game);
     mlx_loop(game.img.mlx);
     return(exit_game(SUCCESS, 0, 1, &game));
 }

@@ -30,6 +30,7 @@ typedef struct  s_cord_i{
 typedef struct  s_tex{
     char          *path;
     int           *tex;
+    t_cord_i      dim;
 }               t_tex;
 
 typedef struct  s_param{
@@ -41,6 +42,8 @@ typedef struct  s_param{
     t_tex           tex[5]; // dans lordre de lenum: tex[0] = SPRIT, tex[1] = NO...
     int             col_F;
     int             col_C;
+    t_cord_i        *sprites;
+    int             sprite_num;
 }               t_param;
 
 int ft_init_parse(t_param *params, char *filename);

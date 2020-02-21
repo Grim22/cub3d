@@ -16,8 +16,8 @@
 #define FOV (66 * M_PI / 180)
 #define SPEED_M 4  // mvmt speed (plus cest grand MOINS on va vite)
 #define SPEED_R 5 // rotation speed (plus cest grand PLUS on tourne vite)
-#define texW 64
-#define texH 64
+#define texW 256
+#define texH 256
 #define ERROR -1
 #define SUCCESS 1
 
