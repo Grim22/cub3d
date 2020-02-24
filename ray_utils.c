@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 12:20:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/24 19:08:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	compute_tex_x(t_ray *ray, t_tex tex)
 	if (ray->side == 0 && ray->vect.x > 0)
 		ray->texX = tex.dim.x - ray->texX - 1;
 	if (ray->side == 1 && ray->vect.y < 0)
-		ray->texX = texW - ray->texX - 1;
+		ray->texX = tex.dim.x - ray->texX - 1;
 }
 
 void	set_pos_dir_in_ray(t_ray *ray, t_param params)
@@ -76,9 +76,9 @@ void	fill_ceiling_floor(t_img *img, t_param params)
 		while (j < params.res.y)
 		{
 			if (j < params.res.y / 2)
-				my_mlx_pixel_put(img, i, j, params.col_F);
+				my_mlx_pixel_put(img, i, j, params.col_f);
 			else
-				my_mlx_pixel_put(img, i, j, params.col_C);
+				my_mlx_pixel_put(img, i, j, params.col_c);
 			j++;
 		}
 		i++;

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bmp.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/24 16:53:00 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/02/24 16:57:48 by bbrunet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
-static void set_int_in_char(char *ptr, int nbr)
+static void	set_int_in_char(char *ptr, int nbr)
 {
 	int *ptr_i;
 
@@ -8,12 +20,11 @@ static void set_int_in_char(char *ptr, int nbr)
 	*ptr_i = nbr;
 }
 
-static int  write_bmp_header(int fd, int filesize, t_game *game)
+static int	write_bmp_header(int fd, int filesize, t_game *game)
 {
-	int				i;
-	char			bmpfileheader[54];
+	int		i;
+	char	bmpfileheader[54];
 
-// pourquoi unsigned char ?
 	i = 0;
 	while (i < 54)
 		bmpfileheader[i++] = 0; // met les champs a zero par defaut
@@ -27,11 +38,11 @@ static int  write_bmp_header(int fd, int filesize, t_game *game)
 	bmpfileheader[26] = (char)(1); // planes
 	bmpfileheader[28] = (char)(24); // en mode 24 bpp (pas de alpha precise dans la map !)
 	if (write(fd, bmpfileheader, 54) < 0)
-        return (0);
+		return (0);
     return (1);
 }
 
-static int get_color(t_game *game, int x, int y) // recupere la couleur du pixel en (x,y) (coordonnees 0,0 en bas a gauche de limage)
+static int	get_color(t_game *game, int x, int y) // recupere la couleur du pixel en (x,y) (coordonnees 0,0 en bas a gauche de limage)
 {
 	int	rgb;
 	int	color;
@@ -41,7 +52,7 @@ static int get_color(t_game *game, int x, int y) // recupere la couleur du pixel
 	return (rgb);
 }
 
-int write_bmp_data(int file, t_game *game)
+static int	write_bmp_data(int file, t_game *game)
 {
 	int i;
 	int j;
@@ -70,17 +81,18 @@ int write_bmp_data(int file, t_game *game)
 	return (1);
 }
 
-int     save_bmp(t_game *game)
+int			save_bmp(t_game *game)
 {
-	int			filesize;
-	int			file;
-	int pad;
+	int	filesize;
+	int	file;
+	int	pad;
 
 	pad = 0;
 	if ((game->params.res.x * 3) % 4)
 		pad = 4 - ((game->params.res.x * 3) % 4);
 	filesize = 54 + ((3 * game->params.res.x + pad) * game->params.res.y);
-	if ((file = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC | O_APPEND, S_IRWXU)) < 0)
+	if ((file = open("screenshot.bmp",
+		O_RDWR | O_CREAT | O_TRUNC | O_APPEND, S_IRWXU)) < 0)
 		return (0);
 	if (!write_bmp_header(file, filesize, game))
 		return (0);

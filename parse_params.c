@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:12:34 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 10:51:54 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/24 19:08:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int ft_fill_params(int indice, char *line, t_param *params)
 	if (indice == 2)
 		ret = ft_fill_res(words, &(params->res));
 	else if (indice == 3 || indice == 4)
-		ret = ft_fill_col(indice, words, &(params->col_C), &(params->col_F));
+		ret = ft_fill_col(indice, words, &(params->col_c), &(params->col_f));
 	else
 		ret = ft_fill_text(indice, words, params);
 	if (ret == -1)
