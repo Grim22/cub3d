@@ -27,8 +27,8 @@ static int  write_bmp_header(int fd, int filesize, t_game *game)
 	bmpfileheader[26] = (char)(1); // planes
 	bmpfileheader[28] = (char)(24); // en mode 24 bpp (pas de alpha precise dans la map !)
 	if (write(fd, bmpfileheader, 54) < 0)
-        return(0);
-    return(1);
+        return (0);
+    return (1);
 }
 
 static int get_color(t_game *game, int x, int y) // recupere la couleur du pixel en (x,y) (coordonnees 0,0 en bas a gauche de limage)
@@ -54,10 +54,10 @@ int write_bmp_data(int file, t_game *game)
 		pad = 4 - ((game->params.res.x * 3) % 4);
 	j = game->params.res.y - 1;
 	zero = 0;
-	while(j >= 0)
+	while (j >= 0)
 	{
 		i = 0;
-		while(i < game->params.res.x)
+		while (i < game->params.res.x)
 		{
 			color = get_color(game, i, j);
 			write(file, &color, 3); // ecrit en 3*i + 3*j (sachant que la premiere adresse est celle du point en bas a gauche de limage, la deuxieme celui en (0,1)...)
@@ -67,7 +67,7 @@ int write_bmp_data(int file, t_game *game)
 		}
 		j--;
 	}
-	return(1);
+	return (1);
 }
 
 int     save_bmp(t_game *game)

@@ -58,5 +58,8 @@ int ft_check_map(char **map);
 int set_dir(t_cord_f *dir, char orientation);
 int ft_free_params(t_param params);
 void ft_print_map(char **map);
+void	ft_init_params(t_param *params);
+int		check_filename(char *filename);
+int		ft_fill_sprites(t_cord_f **sprites, int *num, char **map);
 
 #endif

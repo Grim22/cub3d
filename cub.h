@@ -32,4 +32,6 @@ int ft_press_close(void *param);
 int ft_key_events(int key, t_game *game);
 int save_bmp(t_game *game);
 int ft_get_textures(t_game *game);
+int	exit_game(int ret, char *message, int parse, t_game *game);
+int	ft_check_save(char *arg, t_game *game);
 #endif

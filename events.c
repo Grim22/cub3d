@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:25:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/21 18:38:37 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/24 10:50:48 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int ft_key_events(int key, t_game *game)
         exit(0);
     }
     //mlx_destroy_image(game->img.mlx, game->img.img);
-    return(0);
+    return (0);
 }
 
 int ft_press_close(void *param)

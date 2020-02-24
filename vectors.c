@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:26 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/14 12:41:34 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/24 10:50:48 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float vect_prod(t_cord_f a, t_cord_f b)
 {
-    return(a.x*b.x + a.y*b.y);
+    return (a.x*b.x + a.y*b.y);
 }
 
 t_cord_f vect_scalar_prod(t_cord_f a, float x)
@@ -23,7 +23,7 @@ t_cord_f vect_scalar_prod(t_cord_f a, float x)
 
     b.x = x*a.x;
     b.y = x*a.y;
-    return(b);
+    return (b);
 }
 
 t_cord_f vect_add(t_cord_f a, t_cord_f b)
@@ -32,12 +32,12 @@ t_cord_f vect_add(t_cord_f a, t_cord_f b)
 
     c.x = a.x + b.x;
     c.y = a.y + b.y;
-    return(c);
+    return (c);
 }
 
 t_cord_f vect_normalize(t_cord_f a)
 {
-    return(vect_scalar_prod(a, 1 / sqrt(vect_prod(a, a))));
+    return (vect_scalar_prod(a, 1 / sqrt(vect_prod(a, a))));
 }
 
 void ft_get_normal(t_cord_f *normal, t_cord_f *dir)

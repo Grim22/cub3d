@@ -51,12 +51,12 @@ int encode_color(int R, int G, int B)
 int init_mlx(t_img *img, int xres, int yres) //gerer les erreurs
 {
     if (!(img->mlx = mlx_init()))
-        return(ERROR);
+        return (ERROR);
     if (!(img->win = mlx_new_window(img->mlx, xres, yres, "Cub3d")))
-        return(ERROR);
+        return (ERROR);
     if (!(img->img = mlx_new_image(img->mlx, xres, yres)))
-        return(ERROR);
+        return (ERROR);
     if (!(img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->line_length, &img->endian)))
-        return(ERROR);
-    return(SUCCESS);
+        return (ERROR);
+    return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/12 15:22:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/24 12:28:33 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int				ft_atoi(const char *str);
 void			ft_bzero(void *s, size_t n);
 void			*ft_calloc(size_t count, size_t size);
 int				ft_isalnum(int c);
-int 			ft_isdigit_str(char *str);
+int				ft_isdigit_str(char *str);
 int				ft_isascii(int c);
 int				ft_isdigit(int c);
 int				ft_isprint(int c);
@@ -72,9 +72,8 @@ void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
-
-
-// GNL
+void			ft_swap_i(int *a, int *b);
+void			ft_swap_f(float *a, float *b);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
@@ -82,9 +81,9 @@ void (*del)(void *));
 
 typedef struct	s_fd
 {
-	int				fd;
-	char			*str;
-	struct s_fd		*next;
+	int			fd;
+	char		*str;
+	struct s_fd	*next;
 }				t_fd;
 
 int				get_next_line(int fd, char **line);
