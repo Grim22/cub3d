@@ -9,12 +9,15 @@ typedef struct s_sprite
 {
     int   height;
     int   width;
-    int   middle;
+    int   middle; // projection du sprite sur laxe des x. Milieu entre startx et endx
     int   startx;
     int   endx;
     int   starty;
     int   endy;
-    float   distance;
+    float   distance; // distance entre le sprit et la pos
+    int tex_x; // position dans la texture (sur laxe horizontal) correspondant au stripe a dessiner
+    int tex_height;
+    int tex_width;
 }               t_sprite;
 
 
