@@ -6,20 +6,20 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 16:47:39 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 18:02:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		ft_init_game(t_game *game, char *filename)
+int	ft_init_game(t_game *game, char *filename)
 {
 	if (ft_init_parse(&game->params, filename) == -1)
-		return(-1);
+		return (-1);
 	if (init_mlx(&game->img, game->params.res.x, game->params.res.y) == -1)
 	{
 		ft_putstr_fd("Mlx init failed", 1);
-		return(-1);
+		return (-1);
 	}
 	if (ft_get_textures(game) == -1)
 		return (-1);

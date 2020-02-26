@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 16:50:06 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:21:08 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,21 @@ void	ft_fill_last(char *line, unsigned char *last)
 		*last = *last | _EA;
 }
 
-int		ft_scan_last_error(int ret, int map_on, int last)
+int		ft_scan_last_error(int ret, int map_on, int last, int map_end)
 {
 	if ((map_on == 0 && ret == 1 && last != 255))
-	// cas 1) la map arrive avant que tous les autres param aient ete donnes
 	{
 		ft_putstr_fd("Error\nAll parameters must be given before map", 1);
 		return (-1);
 	}
 	if (map_on && ret != 1 && ret)
-	// cas 2) des param sont donnes en dessous de la map (en doublons donc): on a commence la map et la ligne nest ni une ligne de map ni une ligne vide
 	{
 		ft_putstr_fd("Error\nParameter(s) given after map or inside map", 1);
 		return (-1);
 	}
-	if (map_on && ret == 0)
-	//cas 3) lignes vides dans la map
+	if (map_on && map_end == 0 && ret == 0)
 	{
-		ft_putstr_fd("Error\nEmpty line inside map or after map (make sure there is no \\n at the end of the map)", 1);
+		ft_putstr_fd("Error\nEmpty line inside map", 1);
 		return (-1);
 	}
 	return (0);
@@ -87,20 +84,23 @@ int		ft_scan_last_error(int ret, int map_on, int last)
 int		ft_scan(char *line)
 {
 	static unsigned char	last;
-	static char				map_on;
+	static int				map_on;
 	int						ret;
+	static int				map_end;
 
-	if ((ret = ft_scan_id(line)) == -1) // on verifie quon a bien le bon identifier en debut de ligne
+	if ((ret = ft_scan_id(line)) == -1)
 	{
 		ft_putstr_fd("Error\nWrong line:\n", 1);
 		ft_putstr_fd(line, 1);
 		return (-1);
 	}
-	ft_fill_last(line, &last); // on rempli l'int last, qui va nous permettre de savoir si tous les param ont ete donnes avant la map
-	if (ft_scan_last_error(ret, map_on, last) == -1) // on gere les differents cas d'erreurs lies a last
+	ft_fill_last(line, &last);
+	if (ft_scan_last_error(ret, map_on, last, map_end) == -1)
 		return (-1);
-	if (ret == 1) // ret=1 signifie que la ligne donnee contient le debut de la map
-		map_on = 1; // on set map_on a 1 a partir du moment ou la ligne de debut de map a ete lue
+	if (map_on && ft_line_is_1(line))
+		map_end = 1;
+	if (ret == 1)
+		map_on = 1;
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 18:45:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 16:31:16 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 17:47:30 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define RES_MAX_X 2560
 # define RES_MAX_Y 1440
 # define FOV 66
-# define SPEED_M 6 // mvmt speed (plus cest grand MOINS on va vite)
-# define SPEED_R 3 // rotation speed (plus cest grand PLUS on tourne vite)
+# define SPEED_M 6
+# define SPEED_R 3
 # define ERROR -1
 # define SUCCESS 1
 # define CEILING "./textures/sky_1.xpm"
