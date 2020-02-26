@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 13:09:28 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:42:45 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		ft_fill_map(t_list *lst, char ***map) //
+int		ft_fill_map(t_list *lst, char ***map)
 {
 	int		i;
 	int		j;
@@ -91,12 +91,11 @@ int		ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map)
 
 int		ft_fill_plane(t_cord_f *plane, t_cord_f dir)
 {
-	float FOV_gradient;
+	float fov_gradient;
 
-	FOV_gradient = FOV * M_PI / 180;	
-	
-	plane->x = -dir.y * tan(FOV_gradient / 2);
-	plane->y = dir.x * tan(FOV_gradient / 2);
+	fov_gradient = FOV * M_PI / 180;
+	plane->x = -dir.y * tan(fov_gradient / 2);
+	plane->y = dir.x * tan(fov_gradient / 2);
 	return (0);
 }
 

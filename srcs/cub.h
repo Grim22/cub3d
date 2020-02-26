@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 18:45:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 12:27:17 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:31:16 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@
 # define CEILING "./textures/sky_1.xpm"
 # define FLOOR "./textures/floor_1.xpm"
 
-typedef struct	s_game
-{
-	t_param	params;
-	t_img	img;
-	int		save;
-}				t_game;
-
 int				cast_rays(t_game *game);
 int				ft_press_close(void *param);
 int				ft_set_events_params(t_game *game);
@@ -49,8 +42,10 @@ void			ft_key_a(t_game *game, t_cord_f norm, t_cord_f *pos);
 void			ft_key_d(t_game *game, t_cord_f norm, t_cord_f *pos);
 void			ft_key_w(t_game *game, t_cord_f dir, t_cord_f *pos);
 void			ft_key_s(t_game *game, t_cord_f dir, t_cord_f *pos);
+void			ft_key_left(t_cord_f *dir, t_cord_f *plane);
+void			ft_key_right(t_cord_f *dir, t_cord_f *plane);
+int				ft_key_esc(void);
 int				save_bmp(t_game *game);
-int				ft_get_textures(t_game *game);
 int				exit_game(int ret, char *message, int parse, t_game *game);
 int				ft_check_save(char *arg, t_game *game);
 #endif

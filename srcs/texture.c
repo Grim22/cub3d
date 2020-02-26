@@ -26,7 +26,6 @@ int ft_xpm_to_inttab(int **tex, t_cord_i *dim, char *path, void *mlx_ptr)
     return(0);
 }
 
-
 int ft_get_textures(t_game *game)
 {
     int i;

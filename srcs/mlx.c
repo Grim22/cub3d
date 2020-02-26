@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/12 16:13:35 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/13 205:49 by bbrunet          ###   ########.fr       */
+/*   Created: 2020/02/26 16:40:27 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/02/26 16:40:29 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 	char *dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
-	*(unsigned int *)dst = color; // marche aussi avec int. Pas compris pourquoi unsigned
+	*(unsigned int *)dst = color;
 }
 
 void	my_mlx_pixel_get(t_img img, int x, int y, int *color)
@@ -27,9 +27,7 @@ void	my_mlx_pixel_get(t_img img, int x, int y, int *color)
 
 	dst = img.addr + (y * img.line_length + x * (img.bpp / 8));
 	dst_i = (int *)dst;
-	//printf("*dst_i %d\n", *dst_i);
 	*color = *dst_i;
-	//printf("x y: %d %d\n", x, y);
 }
 
 int		encode_color(int r_, int g_, int b_)
@@ -43,11 +41,10 @@ int		encode_color(int r_, int g_, int b_)
 	g = (g_ & 255) << 8;
 	b = (b_ & 255);
 	color = r | g | b;
-	//color = (0 & 0xff) << 24 | color;
 	return (color);
 }
 
-int		init_mlx(t_img *i, int xres, int yres) //gerer les erreurs
+int		init_mlx(t_img *i, int xres, int yres)
 {
 	if (!(i->mlx = mlx_init()))
 		return (ERROR);

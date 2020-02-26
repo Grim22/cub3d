@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 16:53:00 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 12:59:24 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 15:51:17 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	set_int_in_char(char *ptr, int nbr)
 	int *ptr_i;
 
 	ptr_i = (int *)ptr;
-	*ptr_i = nbr; //
+	*ptr_i = nbr;
 }
 
 static int	write_bmp_header(int fd, int filesize, t_game *game)
@@ -27,28 +27,28 @@ static int	write_bmp_header(int fd, int filesize, t_game *game)
 
 	i = 0;
 	while (i < 54)
-		bmpfileheader[i++] = 0; // met les champs a zero par defaut
+		bmpfileheader[i++] = 0;
 	bmpfileheader[0] = 'B';
 	bmpfileheader[1] = 'M';
-	set_int_in_char(bmpfileheader + 2, filesize); // a ladrresse bmp[2] on veut un int (4 bytes) qui contient la taille totale du fichier
-	bmpfileheader[10] = (char)54; // offset
-	bmpfileheader[14] = (char)40; // 54 - 14
-	set_int_in_char(bmpfileheader + 18, game->params.res.x); // img width
-	set_int_in_char(bmpfileheader + 22, game->params.res.y); // img height
-	bmpfileheader[26] = (char)(1); // planes
-	bmpfileheader[28] = (char)(24); // en mode 24 bpp (pas de alpha precise dans la map !)
+	set_int_in_char(bmpfileheader + 2, filesize);
+	bmpfileheader[10] = (char)54;
+	bmpfileheader[14] = (char)40;
+	set_int_in_char(bmpfileheader + 18, game->params.res.x);
+	set_int_in_char(bmpfileheader + 22, game->params.res.y);
+	bmpfileheader[26] = (char)(1);
+	bmpfileheader[28] = (char)(24);
 	if (write(fd, bmpfileheader, 54) < 0)
 		return (0);
-    return (1);
+	return (1);
 }
 
-static int	get_color(t_game *game, int x, int y) // recupere la couleur du pixel en (x,y) (coordonnees 0,0 en bas a gauche de limage)
+static int	get_color(t_game *game, int x, int y)
 {
 	int	rgb;
 	int	color;
 
 	my_mlx_pixel_get(game->img, x, y, &color);
-	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF); // on met R/G et B sur les 3 premiers bytes de l'int (<> initialement l'int est de type ARGB)
+	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }
 
@@ -71,7 +71,7 @@ static int	write_bmp_data(int file, t_game *game)
 		while (i < game->params.res.x)
 		{
 			color = get_color(game, i, j);
-			write(file, &color, 3); // ecrit en 3*i + 3*j (sachant que la premiere adresse est celle du point en bas a gauche de limage, la deuxieme celui en (0,1)...)
+			write(file, &color, 3);
 			if (i == game->params.res.x - 1 && pad)
 				write(file, &zero, pad);
 			i++;

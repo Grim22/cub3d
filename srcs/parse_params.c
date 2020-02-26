@@ -6,16 +6,16 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:12:34 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 19:08:07 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:45:06 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int ft_fill_col(int indice, char **words, int *colC, int *colF) // voir ce que ca donne si les couleurs sont >255 (eventuellement ajouter un controle)
+int	ft_fill_col(int indice, char **words, int *colc, int *colf)
 {
-	int i;
-	char **str;
+	int		i;
+	char	**str;
 
 	i = 0;
 	while (words[i])
@@ -26,12 +26,13 @@ int ft_fill_col(int indice, char **words, int *colC, int *colF) // voir ce que c
 	i = 0;
 	while (str[i])
 		i++;
-	if (i != 3 || !ft_isdigit_str(str[0]) || !ft_isdigit_str(str[1]) || !ft_isdigit_str(str[2]))
+	if (i != 3 || !ft_isdigit_str(str[0])
+		|| !ft_isdigit_str(str[1]) || !ft_isdigit_str(str[2]))
 		return (-1);
 	if (indice == 3)
-		*colF = encode_color(ft_atoi(str[0]), ft_atoi(str[1]), ft_atoi(str[2]));
+		*colf = encode_color(ft_atoi(str[0]), ft_atoi(str[1]), ft_atoi(str[2]));
 	else
-		*colC = encode_color(ft_atoi(str[0]), ft_atoi(str[1]), ft_atoi(str[2]));
+		*colc = encode_color(ft_atoi(str[0]), ft_atoi(str[1]), ft_atoi(str[2]));
 	free(str[0]);
 	free(str[1]);
 	free(str[2]);
@@ -39,7 +40,7 @@ int ft_fill_col(int indice, char **words, int *colC, int *colF) // voir ce que c
 	return (0);
 }
 
-int ft_fill_res(char **words, t_cord_i *reso)
+int	ft_fill_res(char **words, t_cord_i *reso)
 {
 	int i;
 
@@ -58,7 +59,8 @@ int ft_fill_res(char **words, t_cord_i *reso)
 		reso->y = RES_MAX_Y;
 	return (0);
 }
-int ft_fill_text_path(int indice, char **words, t_param *params)
+
+int	ft_fill_text_path(int indice, char **words, t_param *params)
 {
 	int i;
 
@@ -83,7 +85,7 @@ int ft_fill_text_path(int indice, char **words, t_param *params)
 	return (-1);
 }
 
-int ft_fill_text(int indice, char **words, t_param *params)
+int	ft_fill_text(int indice, char **words, t_param *params)
 {
 	int tex_num;
 
@@ -92,11 +94,11 @@ int ft_fill_text(int indice, char **words, t_param *params)
 	return (0);
 }
 
-int ft_fill_params(int indice, char *line, t_param *params)
+int	ft_fill_params(int indice, char *line, t_param *params)
 {
-	char **words;
-	int i;
-	int ret;
+	char	**words;
+	int		i;
+	int		ret;
 
 	words = ft_split(line, ' ');
 	if (indice == 2)

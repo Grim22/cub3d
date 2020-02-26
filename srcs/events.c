@@ -6,29 +6,11 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:25:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 13:04:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:06:53 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-void	ft_key_left(t_cord_f *dir, t_cord_f *plane)//
-{
-		rotate_dir(dir, -SPEED_R);
-		rotate_dir(plane, -SPEED_R);
-}
-
-void	ft_key_right(t_cord_f *dir, t_cord_f *plane)
-{
-		rotate_dir(dir, SPEED_R);
-		rotate_dir(plane, SPEED_R);
-}
-
-void	ft_key_esc()
-{
-		printf("Bye !\n");
-		exit(0);
-}
 
 int		ft_set_events_params(t_game *game)
 {
@@ -56,8 +38,7 @@ int		ft_set_events_params(t_game *game)
 		game->params.jump = 2;
 	if (game->params.key_esc)
 		ft_key_esc();
-	return(1);
-	//mlx_destroy_image(game->img.mlx, game->img.img);
+	return (1);
 }
 
 int		ft_press_close(void *param)
@@ -67,7 +48,7 @@ int		ft_press_close(void *param)
 	exit(0);
 }
 
-int ft_press_events(int key, t_param *params)
+int		ft_press_events(int key, t_param *params)
 {
 	if (key == KEY_A)
 		params->key_a = 1;
@@ -89,12 +70,11 @@ int ft_press_events(int key, t_param *params)
 		params->key_down = 1;
 	if (key == KEY_SPACE)
 		params->texture_floor = 1;
-	return(1);
+	return (1);
 }
 
-int ft_release_events(int key, t_param *params)
+int		ft_release_events(int key, t_param *params)
 {
-	//printf("key: %d\n", key);
 	if (key == KEY_A)
 		params->key_a = 0;
 	if (key == KEY_S)
@@ -113,5 +93,5 @@ int ft_release_events(int key, t_param *params)
 		params->key_up = 0;
 	if (key == KEY_DOWN)
 		params->key_down = 0;
-	return(1);
+	return (1);
 }

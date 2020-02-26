@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 10:48:47 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 13:57:23 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:50:12 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_check_save(char *arg, t_game *game)
 		ft_putstr_fd("Error\nWrong second argument", 1);
 		return (-1);
 	}
-	game->save = 1;
+	game->params.save = 1;
 	return (0);
 }
 
@@ -76,10 +76,11 @@ void	ft_free_params(t_param params)
 	ft_free_params_tex(params);
 }
 
-void	ft_init_params(t_param *params)
+void	ft_init_params(t_param *params, t_list **lst)
 {
 	int i;
 
+	*lst = NULL;
 	i = -1;
 	params->map = NULL;
 	params->sprites = NULL;
@@ -103,4 +104,5 @@ void	ft_init_params(t_param *params)
 	params->key_down = 0;
 	params->texture_floor = 0;
 	params->jump = 2;
+	params->save = 0;
 }

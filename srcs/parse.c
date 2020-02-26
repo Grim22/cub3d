@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 10:44:01 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:50:06 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ int		ft_scan(char *line)
 	return (ret);
 }
 
-
-
 int		ft_init_parse(t_param *params, char *filename)
 {
 	char	*line;
@@ -113,8 +111,7 @@ int		ft_init_parse(t_param *params, char *filename)
 	int		fd;
 	t_list	*lst;
 
-	lst = NULL;
-	ft_init_params(params); // on met a NULL les pointeurs char correspondant aux chemins vers les textures, afin de pouvoir free le pointeur si il existe, dans le cas ou le param est donne en doublon
+	ft_init_params(params, &lst);
 	if ((fd = check_filename(filename)) == -1)
 		return (-1);
 	while ((i = get_next_line(fd, &line)))
@@ -123,7 +120,7 @@ int		ft_init_parse(t_param *params, char *filename)
 			return (-1);
 		if (i == 1)
 			ft_lstadd_back(&lst, ft_lstnew(line));
-		else if (i) // tout sauf 0, 1 et -1
+		else if (i)
 		{
 			if (ft_fill_params(i, line, params) == -1)
 				return (-1);

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:02:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 13:52:15 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 16:49:57 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,15 @@ typedef struct	s_param
 	int			key_down;
 	float			jump;
 	int			texture_floor;
+	int			save;
 }				t_param;
+
+typedef struct	s_game
+{
+	t_param	params;
+	t_img	img;
+	int		save;
+}				t_game;
 
 int				ft_init_parse(t_param *params, char *filename);
 int				ft_return_error(int err_index);
@@ -86,8 +94,10 @@ int				ft_check_map(char **map);
 int				set_dir(t_cord_f *dir, char orientation);
 void			ft_free_params(t_param params);
 void			ft_print_map(char **map);
-void			ft_init_params(t_param *params);
+void			ft_init_params(t_param *params, t_list **lst);
 int				check_filename(char *filename);
 int				ft_fill_sprites(t_cord_f **sprites, int *num, char **map);
+int				ft_init_game(t_game *game, char *filename);
+int				ft_get_textures(t_game *game);
 
 #endif
