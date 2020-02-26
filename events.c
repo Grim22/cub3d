@@ -6,56 +6,58 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:25:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 18:30:50 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 12:24:11 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_key_left(int key, t_game *game, t_cord_f *dir, t_cord_f *plane)
+void	ft_key_left(t_cord_f *dir, t_cord_f *plane)
 {
-	if (key == KEY_LEFT)
-	{
 		rotate_dir(dir, -SPEED_R);
 		rotate_dir(plane, -SPEED_R);
-		cast_rays(game);
-	}
 }
 
-void	ft_key_right(int key, t_game *game, t_cord_f *dir, t_cord_f *plane)
+void	ft_key_right(t_cord_f *dir, t_cord_f *plane)
 {
-	if (key == KEY_RIGHT)
-	{
 		rotate_dir(dir, SPEED_R);
 		rotate_dir(plane, SPEED_R);
-		cast_rays(game);
-	}
 }
 
-void	ft_key_esc(int key)
+void	ft_key_esc()
 {
-	if (key == 53)
-	{
 		printf("Bye !\n");
 		exit(0);
-	}
 }
 
-int		ft_key_events(int key, t_game *game)
+int		ft_set_events_params(t_game *game)
 {
 	t_cord_f norm;
 
 	norm.x = -game->params.dir.y;
 	norm.y = game->params.dir.x;
-	ft_key_a(key, game, norm, &(game->params.pos));
-	ft_key_d(key, game, norm, &(game->params.pos));
-	ft_key_w(key, game, game->params.dir, &(game->params.pos));
-	ft_key_s(key, game, game->params.dir, &(game->params.pos));
-	ft_key_left(key, game, &(game->params.dir), &(game->params.plane));
-	ft_key_right(key, game, &(game->params.dir), &(game->params.plane));
-	ft_key_esc(key);
+	if (game->params.key_a)
+		ft_key_a(game, norm, &(game->params.pos));
+	if (game->params.key_d)
+		ft_key_d(game, norm, &(game->params.pos));
+	if (game->params.key_w)
+		ft_key_w(game, game->params.dir, &(game->params.pos));
+	if (game->params.key_s)
+		ft_key_s(game, game->params.dir, &(game->params.pos));
+	if (game->params.key_left)
+		ft_key_left(&(game->params.dir), &(game->params.plane));
+	if (game->params.key_right)
+		ft_key_right(&(game->params.dir), &(game->params.plane));
+	if (game->params.key_up)
+		game->params.jump = 1.2;
+	else if (game->params.key_down)
+		game->params.jump = 4;
+	else
+		game->params.jump = 2;
+	if (game->params.key_esc)
+		ft_key_esc();
+	return(1);
 	//mlx_destroy_image(game->img.mlx, game->img.img);
-	return (0);
 }
 
 int		ft_press_close(void *param)
@@ -63,4 +65,53 @@ int		ft_press_close(void *param)
 	printf("Bye !\n");
 	(void)param;
 	exit(0);
+}
+
+int ft_press_events(int key, t_param *params)
+{
+	if (key == KEY_A)
+		params->key_a = 1;
+	if (key == KEY_S)
+		params->key_s = 1;
+	if (key == KEY_D)
+		params->key_d = 1;
+	if (key == KEY_W)
+		params->key_w = 1;
+	if (key == KEY_RIGHT)
+		params->key_right = 1;
+	if (key == KEY_LEFT)
+		params->key_left = 1;
+	if (key == KEY_ESC)
+		params->key_esc = 1;
+	if (key == KEY_UP)
+		params->key_up = 1;
+	if (key == KEY_DOWN)
+		params->key_down = 1;
+	if (key == KEY_SPACE)
+		params->texture_floor = 1;
+	return(1);
+}
+
+int ft_release_events(int key, t_param *params)
+{
+	//printf("key: %d\n", key);
+	if (key == KEY_A)
+		params->key_a = 0;
+	if (key == KEY_S)
+		params->key_s = 0;
+	if (key == KEY_D)
+		params->key_d = 0;
+	if (key == KEY_W)
+		params->key_w = 0;
+	if (key == KEY_RIGHT)
+		params->key_right = 0;
+	if (key == KEY_LEFT)
+		params->key_left = 0;
+	if (key == KEY_ESC)
+		params->key_esc = 0;
+	if (key == KEY_UP)
+		params->key_up = 0;
+	if (key == KEY_DOWN)
+		params->key_down = 0;
+	return(1);
 }

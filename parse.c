@@ -132,5 +132,6 @@ int		ft_init_parse(t_param *params, char *filename)
 	}
 	if (ft_fill_check_map(&lst, &(params->map), params) == -1)
 		return (-1);
+	close(fd);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:09:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 19:12:46 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 11:43:19 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ typedef struct	s_sprite
 	int		tex_height;
 	int		tex_width;
 }				t_sprite;
+
+typedef struct		s_floor
+{
+	t_cord_f	floor;
+	t_cord_f	x0;
+	t_cord_f	x1;
+	t_cord_f	step;
+	int		y;
+	int		p;
+}			t_floor;
+
 
 typedef struct	s_ray
 {
@@ -82,5 +93,6 @@ void			compute_texX(t_ray *ray, t_tex tex);
 int				display_sprites(t_img *img, t_param params, float *buffer);
 void			ft_get_distance(int **order, float **distance, t_param params);
 void			ft_sort_distance(int *order, float *distance, int num);
+int			compute_floor_ceiling(t_img *img, t_param params);
 
 #endif

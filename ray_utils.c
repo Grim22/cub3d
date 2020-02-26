@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 19:08:29 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 12:26:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	display_wall(t_img *img, t_ray *ray, int x, t_param params)
 		tex = params.tex[NO];
 	else if (ray->side == 1 && ray->vect.y > 0)
 		tex = params.tex[EA];
-	else if (ray->side == 1 && ray->vect.y < 0)
+	else
 		tex = params.tex[WE];
 	// on calcul texX, la coordonnee en x dans la texture correspondant a la verticale quon va afficher
 	compute_tex_x(ray, tex);
@@ -61,27 +61,6 @@ void	display_wall(t_img *img, t_ray *ray, int x, t_param params)
 		my_mlx_pixel_put(img, x, j, tex.tex[tex.dim.x * (int)texy + ray->texX]);
 		texy = texy + step;
 		j++;
-	}
-}
-
-void	fill_ceiling_floor(t_img *img, t_param params)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < params.res.x)
-	{
-		j = 0;
-		while (j < params.res.y)
-		{
-			if (j < params.res.y / 2)
-				my_mlx_pixel_put(img, i, j, params.col_f);
-			else
-				my_mlx_pixel_put(img, i, j, params.col_c);
-			j++;
-		}
-		i++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 18:59:13 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 19:02:30 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 11:58:08 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,13 @@
 # define KEY_L			37
 # define KEY_LEFT		123
 # define KEY_RIGHT		124
-# define KEY_FORWARD 	126
-# define KEY_BACKWARD	125
+# define KEY_UP 	126
+# define KEY_DOWN	125
 
 # define KEY_TAB	48
 # define KEY_MAJ	257
 # define KEY_ESC	53
+# define KEY_SPACE	49
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_RELEASE	3

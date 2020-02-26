@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 10:48:47 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 10:50:20 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 11:47:56 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ int		ft_free_params(t_param params)
 			free(params.tex[i].tex);
 		i++;
 	}
+	if (params.ceiling.path)
+	    free(params.ceiling.path);
+	if (params.ceiling.tex)
+	    free(params.ceiling.tex);
+	if (params.ceiling.tex)
+	    free(params.floor.path);
+	if (params.floor.tex)
+	    free(params.floor.tex);
 	return (0);
 }
 
@@ -95,4 +103,19 @@ void	ft_init_params(t_param *params)
 		params->tex[i].tex = NULL;
 		i++;
 	}
+	params->ceiling.path = NULL;
+	params->ceiling.tex = NULL;
+	params->floor.path = NULL;
+	params->floor.tex = NULL;
+	params->key_a = 0;
+	params->key_w = 0;
+	params->key_d = 0;
+	params->key_s = 0;
+	params->key_left = 0;
+	params->key_right = 0;
+	params->key_esc = 0;
+	params->key_up = 0;
+	params->key_down = 0;
+	params->texture_floor = 0;
+	params->jump = 2;
 }

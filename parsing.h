@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:02:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 19:07:40 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 11:47:07 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,23 @@ typedef struct	s_param
 	t_cord_f	plane;
 	char		**map;
 	t_tex		tex[5]; // dans lordre de lenum: tex[0] = SPRIT, tex[1] = NO...
+	t_tex		ceiling;
+	t_tex		floor;
 	int			col_f;
 	int			col_c;
 	t_cord_f	*sprites;
 	int			sprite_num;
+	int			key_a;
+	int			key_w;
+	int			key_s;
+	int			key_d;
+	int			key_left;
+	int			key_right;
+	int			key_esc;
+	int			key_up;
+	int			key_down;
+	float			jump;
+	int			texture_floor;
 }				t_param;
 
 int				ft_init_parse(t_param *params, char *filename);

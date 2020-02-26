@@ -46,10 +46,10 @@ void	ft_get_start_end(t_param params, t_sprite *sprite)
 	w = params.res.x;
 	h = params.res.y;
 	sprite->height = abs((int)(h / sprite->distance));
-	sprite->starty = -sprite->height / 2 + h / 2;
+	sprite->starty = -sprite->height / 2 + h / params.jump;
 	if (sprite->starty < 0)
 		sprite->starty = 0;
-	sprite->endy = sprite->height / 2 + h / 2;
+	sprite->endy = sprite->height / 2 + h / params.jump;
 	if (sprite->endy >= h)
 		sprite->endy = h - 1;
 	sprite->width = abs((int)(h / sprite->distance)) * sprite->tex_width / sprite->tex_height; // on part du principe que la texture est carree: a changer
@@ -73,7 +73,7 @@ int		draw_vertical_stripe(t_img *img, t_param params, t_sprite sprite, int x)
 	y = sprite.starty;
 	while (y < sprite.endy)
 	{
-		d = (y * 256 - params.res.y / 2 * 256 + sprite.height / 2 * 256);
+		d = (y * 256 - params.res.y / params.jump * 256 + sprite.height / 2 * 256);
 		tex_y = ((d * sprite.tex_height) / sprite.height) / 256; // *256 puis /256, pour avoir des nombre entiers...
 		color = texture[sprite.tex_height * tex_y + sprite.tex_x];
 		if ((color & 0x00FFFFFF) != 0) //paint pixel if isnt black, black is the invisible color
