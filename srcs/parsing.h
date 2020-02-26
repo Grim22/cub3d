@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:02:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 11:47:07 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 13:52:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				ft_fill_dir_pos(t_cord_f *pos, t_cord_f *dir, char **map);
 int				ft_fill_plane(t_cord_f *plane, t_cord_f dir);
 int				ft_check_map(char **map);
 int				set_dir(t_cord_f *dir, char orientation);
-int				ft_free_params(t_param params);
+void			ft_free_params(t_param params);
 void			ft_print_map(char **map);
 void			ft_init_params(t_param *params);
 int				check_filename(char *filename);

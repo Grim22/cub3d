@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 16:53:00 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 16:57:48 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 12:59:24 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	set_int_in_char(char *ptr, int nbr)
 	int *ptr_i;
 
 	ptr_i = (int *)ptr;
-	*ptr_i = nbr;
+	*ptr_i = nbr; //
 }
 
 static int	write_bmp_header(int fd, int filesize, t_game *game)

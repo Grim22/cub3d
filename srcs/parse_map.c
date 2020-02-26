@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 18:56:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 13:09:28 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		ft_fill_map(t_list *lst, char ***map)
+int		ft_fill_map(t_list *lst, char ***map) //
 {
 	int		i;
 	int		j;

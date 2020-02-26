@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 12:26:37 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 13:09:58 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	compute_tex_x(t_ray *ray, t_tex tex)
+void	compute_tex_x(t_ray *ray, t_tex tex) //
 {
 	if (ray->side == 0)
 		ray->wallX = ray->pos.y + ray->wallDist * ray->vect.y;

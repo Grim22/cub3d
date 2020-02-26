@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 10:48:47 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 11:47:56 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 13:57:23 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,33 @@ int		exit_game(int ret, char *message, int parse, t_game *game)
 	return (ret);
 }
 
-int		check_filename(char *filename)
-{
-	char	*ext;
-	int		fd;
-
-	if ((fd = open(filename, O_RDONLY)) == -1)
-	{
-		perror("Error\nWrong argument: ");
-		return (-1);
-	}
-	ext = ft_substr(filename, ft_strlen(filename) - 4, ft_strlen(filename));
-	if (ft_strncmp(ext, ".cub", 4))
-	{
-		ft_putstr_fd("Error\nFile extension must be .cub", 1);
-		return (-1);
-	}
-	free(ext);
-	return (fd);
-}
-
-int		ft_free_params(t_param params)
+void	ft_free_params_tex(t_param params)
 {
 	int		i;
+
+	i = 0;
+	while (i < 5)
+	{
+		if (params.tex[i].path)
+			free(params.tex[i].path);
+		if (params.tex[i].tex)
+			free(params.tex[i].tex);
+		i++;
+	}
+	if (params.ceiling.path)
+		free(params.ceiling.path);
+	if (params.ceiling.tex)
+		free(params.ceiling.tex);
+	if (params.ceiling.tex)
+		free(params.floor.path);
+	if (params.floor.tex)
+		free(params.floor.tex);
+}
+
+void	ft_free_params(t_param params)
+{
 	char	**map;
+	int		i;
 
 	map = params.map;
 	i = 0;
@@ -70,38 +73,20 @@ int		ft_free_params(t_param params)
 	}
 	if (params.sprites)
 		free(params.sprites);
-	i = 0;
-	while (i < 5)
-	{
-		if (params.tex[i].path)
-			free(params.tex[i].path);
-		if (params.tex[i].tex)
-			free(params.tex[i].tex);
-		i++;
-	}
-	if (params.ceiling.path)
-	    free(params.ceiling.path);
-	if (params.ceiling.tex)
-	    free(params.ceiling.tex);
-	if (params.ceiling.tex)
-	    free(params.floor.path);
-	if (params.floor.tex)
-	    free(params.floor.tex);
-	return (0);
+	ft_free_params_tex(params);
 }
 
 void	ft_init_params(t_param *params)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	params->map = NULL;
 	params->sprites = NULL;
-	while (i < 5)
+	while (++i < 5)
 	{
 		params->tex[i].path = NULL;
 		params->tex[i].tex = NULL;
-		i++;
 	}
 	params->ceiling.path = NULL;
 	params->ceiling.tex = NULL;

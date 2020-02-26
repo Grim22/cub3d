@@ -6,13 +6,13 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:25:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 12:24:11 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/26 13:04:41 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	ft_key_left(t_cord_f *dir, t_cord_f *plane)
+void	ft_key_left(t_cord_f *dir, t_cord_f *plane)//
 {
 		rotate_dir(dir, -SPEED_R);
 		rotate_dir(plane, -SPEED_R);
