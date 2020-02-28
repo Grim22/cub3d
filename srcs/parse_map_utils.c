@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 11:32:14 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 10:18:38 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/28 15:46:25 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,3 @@ int		ft_fill_sprites(t_cord_f **sprites, int *num, char **map)
 	}
 	return (1);
 }
-
-/*int		inverse_map(char ***map)
-{
-	int max;
-	char **new_map;
-
-	max = ft_get_max
-	
-}*/

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:57 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 10:32:41 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/28 15:48:05 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_init_game(t_game *game, char *filename)
 	}
 	if (ft_get_textures(game) == -1)
 		return (-1);
-	ft_print_map(game->params.map);
 	return (1);
 }
 

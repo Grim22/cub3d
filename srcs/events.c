@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:25:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 11:02:28 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/28 14:29:13 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		ft_set_events_params(t_game *game)
 {
 	t_cord_f norm;
 
+	//norm.x = -game->params.dir.y; // orginal
+	//norm.y = game->params.dir.x; // original
 	norm.x = game->params.dir.y;
 	norm.y = -game->params.dir.x;
 	if (game->params.key_a)

@@ -5,7 +5,7 @@ FLAGS = -Werror -Wextra -Wall
 LIBMLX = -lmlx -framework OpenGL -framework AppKit
 OBJ = $(SRC:%.c=%.o)
 LIBFT_OBJ = $(LIBFT:%.c=%.o)
-NAME = cub.out
+NAME = Cub3D
 
 all: $(NAME)
 
@@ -18,7 +18,7 @@ $(LIBFT_A):
 bonus: $(NAME)
 
 %.o: %.c
-	gcc -c $(FLAGS) $^ -o $@
+	gcc -c -g $(FLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJ) $(LIBFT_OBJ)

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 11:32:50 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/28 15:42:46 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,31 +101,32 @@ int	compute_wall_height(int resy, t_ray *ray, float jump)
 	return (0);
 }
 
-int	cast_rays(t_game *game)
+int	cast_rays(t_game *g)
 {
 	t_ray	ray;
-	float	buffer[game->params.res.x];
+	float	buffer[g->params.res.x];
 	int		i;
 	t_img	img;
 	float	jump;
 
-	jump = game->params.jump;
-	img = game->img;
-	ft_set_events_params(game);
-	set_pos_dir_in_ray(&ray, game->params);
-	compute_floor_ceiling(&img, game->params);
+	jump = g->params.jump;
+	img = g->img;
+	ft_set_events_params(g);
+	set_pos_dir_in_ray(&ray, g->params);
+	compute_floor_ceiling(&img, g->params);
 	i = -1;
-	while (++i < game->params.res.x)
+	while (++i < g->params.res.x)
 	{
-		init_ray(i, game->params.res.x, game->params.plane, &ray);
+		init_ray(i, g->params.res.x, g->params.plane, &ray);
 		compute_side_dist_step(&ray);
-		perform_dda(game->params.map, &ray);
-		compute_wall_height(game->params.res.y, &ray, jump);
-		display_wall(&game->img, &ray, game->params.res.x - i - 1, game->params);
-		buffer[i] = ray.wall_dist;
+		perform_dda(g->params.map, &ray);
+		compute_wall_height(g->params.res.y, &ray, jump);
+		// deux prochaines lignes: on remplace i par g->params.res.x - i + 1
+		display_wall(&g->img, &ray, g->params.res.x - i - 1, g->params);
+		buffer[g->params.res.x - i - 1] = ray.wall_dist;
 	}
-	display_sprites(&game->img, game->params, buffer);
-	if (!game->save)
+	display_sprites(&g->img, g->params, buffer);
+	if (!g->save)
 		mlx_put_image_to_window(img.mlx, img.win, img.img, 0, 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 12:21:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 13:01:10 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/28 15:46:03 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_project_sprite(t_sprite *sprite, int *order, t_param params, int i)
 	spritey = sprite_tab[order[i]].y - params.pos.y;
 	inv_det = 1.0 / (params.plane.x * params.dir.y
 		- params.dir.x * params.plane.y);
-	transformx = inv_det * (params.dir.y * spritex
+	transformx = -inv_det * (params.dir.y * spritex // multiplication par -1
 		- params.dir.x * spritey);
 	sprite->distance = inv_det * (-params.plane.y * spritex
 		+ params.plane.x * spritey);
