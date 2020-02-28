@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 17:21:08 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/28 10:18:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,15 +120,16 @@ int		ft_init_parse(t_param *params, char *filename)
 			return (-1);
 		if (i == 1)
 			ft_lstadd_back(&lst, ft_lstnew(line));
-		else if (i)
+		else
 		{
-			if (ft_fill_params(i, line, params) == -1)
+			if (i && ft_fill_params(i, line, params) == -1)
 				return (-1);
 			free(line);
 		}
 	}
 	if (ft_fill_check_map(&lst, &(params->map), params) == -1)
 		return (-1);
+	//ft_inverse_map(&(params->map));
 	close(fd);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 16:42:45 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/27 17:54:57 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,14 @@ int		ft_fill_map(t_list *lst, char ***map)
 	int		j;
 	char	*c;
 	int		len;
-
+	
+	// get max lenght of a line
+	// *map = malloc(max + 1)
+	// while (i < max)
+	//		while(lst)
+	//			len++
+	// 
+	//	map[i][j] = c[]
 	*map = malloc((ft_lstsize(lst) + 1) * sizeof(char *));
 	i = 0;
 	while (lst)

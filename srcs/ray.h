@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:09:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 18:07:57 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/02/27 10:03:56 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void			print_ray_info(t_ray ray);
 int				compute_plane(t_cord_f dir, float fov, t_cord_f *plane);
 void			display_wall(t_img *img, t_ray *ray, int x, t_param params);
 void			fill_ceiling_floor(t_img *img, t_param params);
-void			compute_tex_x(t_ray *ray, t_tex tex);
+void			compute_tex_x(t_ray *ray, t_tex *tex, t_param params);
 int				display_sprites(t_img *img, t_param params, float *buffer);
 void			ft_get_distance(int **order, float **distance, t_param params);
 void			ft_sort_distance(int *order, float *distance, int num);
