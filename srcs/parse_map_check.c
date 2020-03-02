@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   parse_map_check.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:08 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 18:00:19 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/02 15:33:13 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int		ft_check_map(char **map)
 		ft_putstr_fd("Error\nWrong char on map", 1);
 		return (-1);
 	}
-	if (ft_check_mapborders(map) == -1)
+	if (ft_check_mapborders(map) == -1 || ft_check_mapborders_full(map) == -1)
 	{
 		ft_putstr_fd("Error\nBorders should be only '1'", 1);
 		return (-1);
