@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:19 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 15:42:46 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/02 10:07:11 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int	cast_rays(t_game *g)
 		compute_side_dist_step(&ray);
 		perform_dda(g->params.map, &ray);
 		compute_wall_height(g->params.res.y, &ray, jump);
-		// deux prochaines lignes: on remplace i par g->params.res.x - i + 1
 		display_wall(&g->img, &ray, g->params.res.x - i - 1, g->params);
 		buffer[g->params.res.x - i - 1] = ray.wall_dist;
 	}

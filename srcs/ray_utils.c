@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 15:47:45 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/02 12:08:31 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	display_wall(t_img *img, t_ray *ray, int x, t_param params)
 	j = ray->draw_start;
 	while (j < ray->draw_end)
 	{
-		tex_y = (int)tex_pos & (tex.dim.y - 1);
+		tex_y = (int)tex_pos;
 		my_mlx_pixel_put(img, x, j,
 			tex.tex[tex.dim.x * (int)tex_y + ray->tex_x]);
 		tex_pos = tex_pos + step;
