@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 19:02:49 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/03/02 15:46:47 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:23:37 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ int				ft_fill_sprites(t_cord_f **sprites, int *num, char **map);
 int				ft_init_game(t_game *game, char *filename);
 int				ft_get_textures(t_game *game);
 int				ft_line_is_1(char *line);
-int				ft_check_mapborders_full(char **map);
+int				ft_fill_map_2(t_list *lst, char ***map, int lon);
+int				ft_get_longest(t_list *lst);
+int				ft_make_map_line(t_list *lst);
+int				ft_check_mapborders_line(char **map);
+int				ft_check_mapborders_col(char **map);
+int				ft_check_mapcars(t_list *lst);
 
 #endif

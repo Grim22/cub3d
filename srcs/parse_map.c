@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:12 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 15:44:56 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:58:00 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,21 @@
 
 int		ft_fill_map(t_list *lst, char ***map)
 {
-	int		i;
-	int		j;
-	char	*c;
-	int		len;
+	int		lon;
 
-	*map = malloc((ft_lstsize(lst) + 1) * sizeof(char *));
-	i = 0;
-	while (lst)
+	if (ft_check_mapcars(lst) == -1)
 	{
-		c = ft_str_delchar(lst->content, ' ');
-		len = 0;
-		while (c[len])
-			len++;
-		(*map)[i] = malloc((len + 1) * sizeof(char));
-		j = -1;
-		while (++j < len)
-			(*map)[i][j] = c[j];
-		(*map)[i][j] = 0;
-		lst = lst->next;
-		i++;
+		ft_putstr_fd("Error\nWrong char on map", 1);
+		return (-1);
 	}
-	(*map)[i] = 0;
+	if (ft_make_map_line(lst) == -1)
+	{
+		ft_putstr_fd("Error\nNot one space between map chars", 1);
+		return (-1);
+	}
+	*map = malloc((ft_lstsize(lst) + 1) * sizeof(char *));
+	lon = ft_get_longest(lst);
+	ft_fill_map_2(lst, map, lon);
 	return (0);
 }
 
@@ -106,7 +99,9 @@ int		ft_fill_check_map(t_list **lst, char ***map, t_param *params)
 		ft_putstr_fd("Error\nNo map", 1);
 		return (-1);
 	}
-	ft_fill_map(*lst, map);
+	if (ft_fill_map(*lst, map) == -1)
+		return (-1);
+	ft_print_map(*map);
 	ft_lstclear(lst, &free);
 	if (ft_check_map(*map) == -1)
 		return (-1);

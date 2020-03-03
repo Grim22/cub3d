@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:13:28 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/28 15:45:28 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/03 16:19:31 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_fill_last(char *line, unsigned char *last)
 		*last = *last | _EA;
 }
 
-int		ft_scan_last_error(int ret, int map_on, int last, int map_end)
+int		ft_scan_last_error(int ret, int map_on, int last, int empty_line)
 {
 	if ((map_on == 0 && ret == 1 && last != 255))
 	{
@@ -73,7 +73,7 @@ int		ft_scan_last_error(int ret, int map_on, int last, int map_end)
 		ft_putstr_fd("Error\nParameter(s) given after map or inside map", 1);
 		return (-1);
 	}
-	if (map_on && map_end == 0 && ret == 0)
+	if (ret == 1 && empty_line)
 	{
 		ft_putstr_fd("Error\nEmpty line inside map", 1);
 		return (-1);
@@ -86,7 +86,7 @@ int		ft_scan(char *line)
 	static unsigned char	last;
 	static int				map_on;
 	int						ret;
-	static int				map_end;
+	static int				empty_line;
 
 	if ((ret = ft_scan_id(line)) == -1)
 	{
@@ -95,12 +95,13 @@ int		ft_scan(char *line)
 		return (-1);
 	}
 	ft_fill_last(line, &last);
-	if (ft_scan_last_error(ret, map_on, last, map_end) == -1)
+	if (ft_scan_last_error(ret, map_on, last, empty_line) == -1)
 		return (-1);
-	if (map_on && ft_line_is_1(line))
-		map_end = 1;
+	if (map_on && ret == 0)
+		empty_line = 1;
 	if (ret == 1)
 		map_on = 1;
+	//printf("line: %s, ret: %d, mapon: %d, mapend: %d\n", line, ret, map_on, map_end);
 	return (ret);
 }
 

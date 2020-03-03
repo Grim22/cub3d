@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 16:14:08 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/03/02 15:33:13 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/03 15:49:53 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_convert_maptoint(char **map)
 		i++;
 	}
 }
-
+/*
 int		ft_check_mapborders(char **map)
 {
 	int i;
@@ -58,26 +58,26 @@ int		ft_check_mapborders(char **map)
 			return (-1);
 	}
 	return (0);
-}
+}*/
 
-int		ft_check_mapcars(char **map)
+int		ft_check_mapcars(t_list *lst)
 {
 	int i;
-	int j;
+	char *c;
 
-	i = 0;
-	while (map[i])
+	while (lst)
 	{
-		j = 0;
-		while (map[i][j])
+		c = lst->content;
+		i = 0;
+		while (c[i])
 		{
-			if (map[i][j] != 48 && map[i][j] != 49 && map[i][j] != 50
-			&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E'
-			&& map[i][j] != 'W')
+			if (c[i] != 48 && c[i] != 49 && c[i] != 50
+			&& c[i] != 'N' && c[i] != 'S' && c[i] != 'E'
+			&& c[i] != 'W' && c[i] != ' ')
 				return (-1);
-			j++;
+			i++;
 		}
-		i++;
+		lst = lst->next;
 	}
 	return (0);
 }
@@ -114,12 +114,7 @@ int		ft_check_map(char **map)
 		ft_putstr_fd("Error\nPlease specify one (and only one) direction", 1);
 		return (-1);
 	}
-	if (ft_check_mapcars(map) == -1)
-	{
-		ft_putstr_fd("Error\nWrong char on map", 1);
-		return (-1);
-	}
-	if (ft_check_mapborders(map) == -1 || ft_check_mapborders_full(map) == -1)
+	if (ft_check_mapborders_line(map) == -1 || ft_check_mapborders_col(map) == -1)
 	{
 		ft_putstr_fd("Error\nBorders should be only '1'", 1);
 		return (-1);

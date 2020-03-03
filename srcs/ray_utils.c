@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 13:00:44 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/03/02 12:08:31 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/03 11:03:10 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	compute_tex_x(t_ray *ray, t_tex *tex, t_param params)
 	ray->wallx = ray->wallx - (int)ray->wallx;
 	ray->tex_x = (int)(ray->wallx * (float)tex->dim.x);
 	if (ray->side == 0 && ray->vect.x > 0)
-		ray->tex_x = tex->dim.x - ray->tex_x - 1;
+		ray->tex_x = tex->dim.x - ray->tex_x - 1; // meme code
 	if (ray->side == 1 && ray->vect.y < 0)
-		ray->tex_x = tex->dim.x - ray->tex_x - 1;
+		ray->tex_x = tex->dim.x - ray->tex_x - 1; // meme code
 }
 
 void	set_pos_dir_in_ray(t_ray *ray, t_param params)

@@ -9,7 +9,7 @@ NAME = Cub3D
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT_A)
+$(NAME): $(LIBFT_A) $(OBJ) 
 	gcc -o $(NAME) -g -O3 $(LIBMLX) -L./libft -lft $(OBJ)
 
 $(LIBFT_A):

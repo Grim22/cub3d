@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/24 12:28:33 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/03 12:30:24 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int				ft_read(char **buf, int fd);
 int				ft_len(char *str);
 int				ft_cat(char **str, char *buf, int ret);
 int				ft_clean(int ret, t_fd **begin, t_fd **elem, int error);
+char			*ft_str_del_1_sur_2(char *a);
 
 #endif
