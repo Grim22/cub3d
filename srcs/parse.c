@@ -16,8 +16,6 @@ int		ft_scan_id(char *line)
 {
 	if (line[0] == 0)
 		return (0);
-	if (line[0] == '1')
-		return (1);
 	if (ft_strlen(line) < 3)
 		return (-1);
 	if (line[0] == 'R' && line[1] == 32)
@@ -36,6 +34,8 @@ int		ft_scan_id(char *line)
 		return (8);
 	if (line[0] == 'E' && line[1] == 'A' && line[2] == 32)
 		return (9);
+	if (ft_line_is_map(line))
+		return (1);
 	return (-1);
 }
 
@@ -61,14 +61,14 @@ void	ft_fill_last(char *line, unsigned char *last)
 		*last = *last | _EA;
 }
 
-int		ft_scan_last_error(int ret, int map_on, int last, int empty_line)
+int		ft_check_errors(int ret, int last, int empty_line, int map_on)
 {
-	if ((map_on == 0 && ret == 1 && last != 255))
+	if ((ret == 1 && last != 255))
 	{
 		ft_putstr_fd("Error\nAll parameters must be given before map", 1);
 		return (-1);
 	}
-	if (map_on && ret != 1 && ret)
+	if (map_on && ret > 1)
 	{
 		ft_putstr_fd("Error\nParameter(s) given after map or inside map", 1);
 		return (-1);
@@ -85,8 +85,8 @@ int		ft_scan(char *line)
 {
 	static unsigned char	last;
 	static int				map_on;
-	int						ret;
 	static int				empty_line;
+	int						ret;
 
 	if ((ret = ft_scan_id(line)) == -1)
 	{
@@ -94,14 +94,13 @@ int		ft_scan(char *line)
 		ft_putstr_fd(line, 1);
 		return (-1);
 	}
-	ft_fill_last(line, &last);
-	if (ft_scan_last_error(ret, map_on, last, empty_line) == -1)
+	if (ft_check_errors(ret, last, empty_line, map_on) == -1)
 		return (-1);
+	ft_fill_last(line, &last);
 	if (map_on && ret == 0)
 		empty_line = 1;
 	if (ret == 1)
 		map_on = 1;
-	//printf("line: %s, ret: %d, mapon: %d, mapend: %d\n", line, ret, map_on, map_end);
 	return (ret);
 }
 

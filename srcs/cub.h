@@ -6,7 +6,7 @@
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 18:45:42 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/27 14:32:23 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/05 12:33:28 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define ERROR -1
 # define SUCCESS 1
 # define CEILING "./textures/sky_1.xpm"
-# define FLOOR "./textures/floor_1.xpm"
+# define FLOOR "./textures/wood.xpm"
 
 int				cast_rays(t_game *game);
 int				save_bmp(t_game *game);

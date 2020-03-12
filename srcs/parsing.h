@@ -103,8 +103,8 @@ int				ft_line_is_1(char *line);
 int				ft_fill_map_2(t_list *lst, char ***map, int lon);
 int				ft_get_longest(t_list *lst);
 int				ft_make_map_line(t_list *lst);
-int				ft_check_mapborders_line(char **map);
-int				ft_check_mapborders_col(char **map);
+int				ft_check_mapborders(char **map);
 int				ft_check_mapcars(t_list *lst);
+int				ft_line_is_map(char *line);
 
 #endif

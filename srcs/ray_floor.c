@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor.c                                            :+:      :+:    :+:   */
+/*   ray_floor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 16:08:15 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/02/26 16:11:03 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/03/05 12:34:17 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		draw_floor(t_img *img, t_floor floor, t_tex tex, int resx)
 		tx = (int)(tex.dim.x * (floor.floor.x - tx)) & (tex.dim.x - 1);
 		ty = (int)(tex.dim.y * (floor.floor.y - ty)) & (tex.dim.y - 1);
 		color = tex.tex[tex.dim.y * ty + tx];
-		my_mlx_pixel_put(img, x, floor.y, color);
+		my_mlx_pixel_put(img, resx - x - 1, floor.y, color);
 		floor.floor = vect_add(floor.floor, floor.step);
 		x++;
 	}
