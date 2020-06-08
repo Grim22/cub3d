@@ -1,4 +1,4 @@
-# cub3d
+# cub3d @ 42
 
 The goal of ``cub3d`` is to make a small game using raycasting (like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
 
